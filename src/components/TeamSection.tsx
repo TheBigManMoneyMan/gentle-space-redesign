@@ -1,6 +1,6 @@
 import { Facebook, Twitter, Linkedin } from "lucide-react";
 import founderImage from "@/assets/FounderImage.png";
-import teamJay from "@/assets/team-jay.jpg";
+import teamJay from "@/assets/Jay.png";
 
 const TeamSection = () => {
   const teamMembers = [
