@@ -10,7 +10,7 @@ const HeroSection = () => {
         <img
           src={heroImage}
           alt="Consent education workshop with engaged young adults learning about healthy relationships"
-          className="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-40"
+          className="absolute inset-0 w-full h-full object-cover object-top mix-blend-overlay opacity-40"
         />
       </div>
 
