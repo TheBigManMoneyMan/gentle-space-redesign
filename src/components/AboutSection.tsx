@@ -1,5 +1,5 @@
 import handsImage from "@/assets/hands-connection.jpg";
-import coachImage from "@/assets/coach-portrait.jpg";
+import coachImage from "@/assets/FounderImage.png";
 
 const AboutSection = () => {
   return (
