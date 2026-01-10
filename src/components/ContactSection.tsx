@@ -2,20 +2,62 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin } from "lucide-react";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
+import { useToast } from "@/hooks/use-toast";
 
 const ContactSection = () => {
+  const { toast } = useToast();
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
     subscribe: false,
   });
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+  const [recaptchaError, setRecaptchaError] = useState(false);
+
+  // Replace with your actual reCAPTCHA site key
+  const RECAPTCHA_SITE_KEY = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"; // Test key - replace for production
+
+  const handleRecaptchaChange = (token: string | null) => {
+    setRecaptchaToken(token);
+    if (token) {
+      setRecaptchaError(false);
+    }
+  };
+
+  const handleRecaptchaExpired = () => {
+    setRecaptchaToken(null);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate reCAPTCHA
+    if (!recaptchaToken) {
+      setRecaptchaError(true);
+      toast({
+        title: "Verification Required",
+        description: "Please complete the reCAPTCHA verification to submit the form.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     // Form submission logic would go here
-    console.log("Form submitted:", formData);
+    console.log("Form submitted:", { ...formData, recaptchaToken });
+    
+    toast({
+      title: "Message Sent!",
+      description: "Thank you for reaching out. We'll get back to you soon.",
+    });
+
+    // Reset form and reCAPTCHA
+    setFormData({ name: "", email: "", message: "", subscribe: false });
+    setRecaptchaToken(null);
+    recaptchaRef.current?.reset();
   };
 
   return (
@@ -90,7 +132,30 @@ const ContactSection = () => {
                   Yes, subscribe me to your newsletter
                 </label>
               </div>
-              <Button type="submit" variant="cta" className="w-full">
+              
+              {/* reCAPTCHA Widget */}
+              <div className="flex flex-col items-start gap-2">
+                <ReCAPTCHA
+                  ref={recaptchaRef}
+                  sitekey={RECAPTCHA_SITE_KEY}
+                  onChange={handleRecaptchaChange}
+                  onExpired={handleRecaptchaExpired}
+                  theme="light"
+                  size="normal"
+                />
+                {recaptchaError && (
+                  <p className="text-sm text-destructive" role="alert">
+                    Please verify that you're not a robot
+                  </p>
+                )}
+              </div>
+              
+              <Button 
+                type="submit" 
+                variant="cta" 
+                className="w-full"
+                disabled={!recaptchaToken}
+              >
                 Send Message
               </Button>
             </form>
