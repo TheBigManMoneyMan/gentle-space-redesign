@@ -40,35 +40,6 @@ const AboutSection = () => {
             </p>
           </div>
         </div>
-
-        {/* Founder Card */}
-        <div className="bg-card rounded-2xl p-8 lg:p-12 shadow-soft">
-          <div className="grid md:grid-cols-3 gap-8 items-center">
-            <div className="flex justify-center md:justify-start">
-              <img
-                src={coachImage}
-                alt="Corinne Diachuk, Certified Somatic Sex and Consent Educator"
-                className="w-48 h-48 object-cover rounded-full shadow-card"
-              />
-            </div>
-            <div className="md:col-span-2 space-y-4">
-              <div>
-                <p className="text-sm text-accent font-medium uppercase tracking-wide mb-1">
-                  Somatic Sex and Consent Educator
-                </p>
-                <h3 className="text-2xl font-serif font-bold text-foreground">
-                  Corinne Diachuk RYT 800, SSE
-                </h3>
-              </div>
-              <p className="text-muted-foreground leading-relaxed">
-                I am a Certified Somatic Sex and Consent Educator, a Yoga Therapist, and a mother 
-                to a young adult son. I have been teaching the teachers, facilitating group consent 
-                workshops, and offering 1 to 1 private sessions for individuals and couples in my 
-                private practice for over 10 years.
-              </p>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );
