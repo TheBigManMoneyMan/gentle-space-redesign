@@ -3,17 +3,17 @@ const HowItWorksSection = () => {
     {
       title: "Exploration",
       description:
-        "We begin by exploring the fundamental concepts of consent, boundaries, and power dynamics, providing a solid foundation for the journey ahead.",
+        "We begin by exploring the fundamental concepts of receiving and giving, negotiating boundaries, desires, and limits, power dynamics, and basic nervous system theory, to provide for a solid foundation for the journey ahead.",
     },
     {
       title: "Training Sessions",
       description:
-        "Our training sessions are designed to impart practical, embodied skills that empower young athletes to navigate complex social dynamics and build respectful relationships.",
+        "Our training sessions provide the opportunity for young  people to slow down and trust in their own sensations and values, notice the complex social dynamics, and practice communication.",
     },
     {
       title: "Progress Tracking",
       description:
-        "We believe in tracking progress to ensure that each athlete is equipped with the tools and knowledge necessary to stay safe, have fun, and thrive both on and off the field.",
+        "We believe that the skills we have to offer wil equip the participants with the tools and knowledge necessary to stay safe,  have fun, and thrive; not only in the dating field, but also in the classroom, and on the team.",
     },
   ];
 
