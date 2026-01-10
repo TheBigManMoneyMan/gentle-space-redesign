@@ -40,7 +40,9 @@ const HeroSection = () => {
             key={index}
             src={image.src}
             alt={image.alt}
-            className={`absolute inset-0 w-full h-full object-cover object-center mix-blend-overlay transition-opacity duration-1000 ${
+            className={`absolute inset-0 w-full h-full object-cover mix-blend-overlay transition-opacity duration-1000 ${
+              index === 0 ? "object-[center_70%]" : "object-center"
+            } ${
               index === currentSlide ? "opacity-40" : "opacity-0"
             }`}
           />
