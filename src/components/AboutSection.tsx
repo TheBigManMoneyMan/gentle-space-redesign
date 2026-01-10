@@ -28,13 +28,15 @@ const AboutSection = () => {
           {/* Text Content */}
           <div className="space-y-6">
             <p className="text-lg text-foreground leading-relaxed">
-              As a coach dedicated to teaching young male athletes, I am committed to 
-              providing a safe and supportive environment for them to develop practical, 
-              embodied skills in consent, boundaries, power dynamics, and respectful relating.
+              We are coaches dedicated to teaching young people. We are committed to
+              providing a safe and supportive environment in which they can develop 
+              practical embodied skills in consent, boundaries, and power dynamics, 
+              and nurture a culture of respect.
             </p>
             <p className="text-muted-foreground leading-relaxed">
-              Through my coaching, athletes gain the tools to stay safe and have fun, 
-              empowering them to navigate challenges and build resilience for enduring growth.
+              Through our coaching, athletes gain the tools to stay safe and have fun,
+              empowering them to navigate challenging situations and build capacity 
+              for decision-making in heightened states of intensity.
             </p>
           </div>
         </div>
