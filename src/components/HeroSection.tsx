@@ -6,16 +6,16 @@ import heroHockey from "@/assets/hero-hockey.jpeg";
 
 const heroImages = [
   {
-    src: heroAthletesClass,
-    alt: "Young athletes engaged in a consent education workshop discussion",
-  },
-  {
     src: heroFootball,
     alt: "Football players during practice, learning teamwork and respect",
   },
   {
     src: heroHockey,
     alt: "Hockey players in action, demonstrating sportsmanship",
+  },
+  {
+    src: heroAthletesClass,
+    alt: "Young athletes engaged in a consent education workshop discussion",
   },
 ];
 
@@ -41,7 +41,7 @@ const HeroSection = () => {
             src={image.src}
             alt={image.alt}
             className={`absolute inset-0 w-full h-full object-cover mix-blend-overlay transition-opacity duration-1000 ${
-              index === 0 ? "object-[center_70%]" : "object-center"
+              index === 2 ? "object-[center_70%]" : "object-center"
             } ${
               index === currentSlide ? "opacity-40" : "opacity-0"
             }`}
