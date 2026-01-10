@@ -33,7 +33,7 @@ const HeroSection = () => {
     <section className="relative min-h-screen flex items-center">
       {/* Background slideshow */}
       <div className="absolute inset-0 gradient-hero">
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/85 to-primary/70 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/80 via-primary/65 to-primary/50 z-10" />
         
         {heroImages.map((image, index) => (
           <img
