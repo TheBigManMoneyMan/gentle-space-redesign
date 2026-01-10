@@ -81,8 +81,8 @@ const HeroSection = () => {
           </h1>
           
           <p className="text-lg md:text-xl text-primary-foreground/90 mb-8 max-w-xl leading-relaxed">
-            Trauma-informed consent education that empowers young athletes to build 
-            healthy relationships, understand boundaries, and thrive on and off the field.
+            Trauma- informed consent education to empower young people to understand
+            boundaries and power dynamics, and thrive in healthy relationships!
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4">
