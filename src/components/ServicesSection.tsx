@@ -8,15 +8,15 @@ const ServicesSection = () => {
     {
       icon: User,
       title: "One-on-One Coaching",
-      forWho: "Young adults and athletes seeking personal growth",
-      helpsWidth: "Building confidence in boundaries, consent communication, and healthy relating",
+      forWho: "Young adults, athletes, seeking personal growth. Coaches, Teachers, Mentors, Managers and parents seeking skills to support their young people.",
+      helpsWidth: "Building confidence in boundaries, consent communication, healthy relating, understanding harm, support for accountability processes and learning how to be in repair when harm has happened.",
       expect: "Private, confidential sessions tailored to your specific needs and goals",
     },
     {
       icon: Users,
       title: "Group Workshops",
       forWho: "Sports teams, school groups, and youth organizations",
-      helpsWidth: "Team culture, mutual respect, and collective understanding of consent",
+      helpsWidth: "Team culture, mutual respect, collective understanding of consent, and accountability",
       expect: "Interactive, engaging sessions with practical exercises and group discussions",
     },
     {
