@@ -7,20 +7,20 @@ import heroHockey from "@/assets/hero-hockey-new.jpg";
 
 const heroImages = [
   {
-    src: heroFootball,
-    alt: "Football players during a game, demonstrating teamwork",
-  },
-  {
-    src: heroFootballTeam,
-    alt: "Football team running together on the field",
-  },
-  {
     src: heroHockey,
     alt: "Hockey players in action on the ice rink",
   },
   {
+    src: heroFootball,
+    alt: "Football players during a game, demonstrating teamwork",
+  },
+  {
     src: heroBasketball,
     alt: "Basketball players during an indoor game",
+  },
+  {
+    src: heroFootballTeam,
+    alt: "Football team running together on the field",
   },
 ];
 
