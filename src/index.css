@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Teko:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Teko:wght@300;400;500;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -47,7 +47,7 @@
     --green-accent: 24 100% 65%;
     --cream: 80 16% 86%;
     --warm-brown: 354 71% 14%;
-    
+
     /* Shadows */
     --shadow-soft: 0 4px 20px -4px hsl(200 78% 10% / 0.3);
     --shadow-card: 0 8px 32px -8px hsl(200 78% 10% / 0.4);
@@ -114,14 +114,19 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    font-family: 'Teko', system-ui, sans-serif;
+    font-family: "Teko", system-ui, sans-serif;
     font-weight: 400;
     letter-spacing: 0.02em;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Teko', system-ui, sans-serif;
-    @apply text-foreground uppercase;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Teko", system-ui, sans-serif;
+    @apply text-foreground capitalize;
     font-weight: 600;
     letter-spacing: 0.05em;
   }
@@ -163,18 +168,22 @@
   }
 
   @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 
   @keyframes slideUp {
-    from { 
-      opacity: 0; 
-      transform: translateY(20px); 
+    from {
+      opacity: 0;
+      transform: translateY(20px);
     }
-    to { 
-      opacity: 1; 
-      transform: translateY(0); 
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 }
