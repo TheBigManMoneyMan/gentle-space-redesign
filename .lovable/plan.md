@@ -1,39 +1,31 @@
 
-# Replace Jay Wade's Team Photo
 
-## Overview
-Replace Jay Wade's current image with the newly uploaded photo and adjust the positioning so his face is centered and aligned with Corinne Diachuk's face.
+## Make Hero Images More Visible
 
-## Changes Required
+Adjusting the overlay and image opacity values to make the sports images more prominent in the hero section.
 
-### 1. Copy the New Image to Project Assets
-- Copy the uploaded image `user-uploads://jaypic.png` to `src/assets/jaypic.png`
+### Changes to Make
 
-### 2. Update TeamSection.tsx
-- Update the import statement to use the new image file
-- Adjust the `object-position` CSS value for Jay's image to properly center his face
+**File: `src/components/HeroSection.tsx`**
 
-**Current code:**
-```tsx
-import teamJay from "@/assets/Jay.png";
-```
+| Element | Current Value | New Value |
+|---------|---------------|-----------|
+| Gradient overlay (left) | `from-primary/60` | `from-primary/50` |
+| Gradient overlay (center) | `via-primary/45` | `via-primary/35` |
+| Gradient overlay (right) | `to-primary/30` | `to-primary/20` |
+| Image opacity (active slide) | `opacity-40` | `opacity-50` |
 
-**Updated code:**
-```tsx
-import teamJay from "@/assets/jaypic.png";
-```
+### Technical Details
 
-### 3. Fine-tune Face Positioning
-Looking at the new image - it's a selfie where Jay's face is well-centered vertically in the frame. Since Corinne's image uses `object-top` positioning, I'll adjust Jay's positioning to align similarly.
+The changes will be made on two lines:
 
-The new image shows Jay's face is naturally centered, so I'll update the object-position from `object-[center_45%]` to `object-[center_35%]` to shift the visible area slightly upward, ensuring his face aligns at a similar height to Corinne's.
+1. **Line 36** - Reduce the gradient overlay opacity by 10% at each point:
+   - `from-primary/60` → `from-primary/50`
+   - `via-primary/45` → `via-primary/35`
+   - `to-primary/30` → `to-primary/20`
 
----
+2. **Line 45** - Increase the active image opacity by 10%:
+   - `opacity-40` → `opacity-50`
 
-## Technical Details
+This will reduce the maroon color overlay and make the underlying sports images more visible while still maintaining enough contrast for the text to remain readable.
 
-**File to modify:** `src/components/TeamSection.tsx`
-
-**Changes:**
-1. Line 3: Change import from `Jay.png` to `jaypic.png`
-2. Line 49: Adjust object-position value to better center the face (will start with `object-[center_35%]` and can fine-tune if needed)
