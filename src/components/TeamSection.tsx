@@ -1,6 +1,6 @@
 import { Facebook, Twitter, Linkedin } from "lucide-react";
 import founderImage from "@/assets/FounderImage.png";
-import teamJay from "@/assets/Jay.png";
+import teamJay from "@/assets/jaypic.png";
 
 const TeamSection = () => {
   const teamMembers = [
@@ -46,7 +46,7 @@ const TeamSection = () => {
                   src={member.image}
                   alt={`${member.name} - ${member.role}`}
                   className={`w-full h-72 object-cover rounded-lg ${
-                    member.name.includes("Jay") ? "object-[center_45%]" : "object-top"
+                    member.name.includes("Jay") ? "object-[center_35%]" : "object-top"
                   }`}
                 />
               </div>
