@@ -33,7 +33,7 @@ const HeroSection = () => {
     <section className="relative min-h-screen flex items-center">
       {/* Background slideshow */}
       <div className="absolute inset-0 gradient-hero">
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/60 via-primary/45 to-primary/30 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/50 via-primary/35 to-primary/20 z-10" />
 
         {heroImages.map((image, index) => (
           <img
@@ -42,7 +42,7 @@ const HeroSection = () => {
             alt={image.alt}
             className={`absolute inset-0 w-full h-full object-cover mix-blend-overlay transition-opacity duration-1000 ${
               index === 2 ? "object-[center_70%]" : "object-center"
-            } ${index === currentSlide ? "opacity-40" : "opacity-0"}`}
+            } ${index === currentSlide ? "opacity-50" : "opacity-0"}`}
           />
         ))}
       </div>
