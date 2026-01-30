@@ -74,7 +74,7 @@ const HeroSection = () => {
       {/* Content */}
       <div className="relative z-20 container-wide mx-auto px-6 lg:px-12 py-32 lg:py-40">
         <div className="max-w-3xl ml-auto lg:ml-[20%]">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-serif font-bold text-primary-foreground leading-tight mb-6">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl sans-serif font-bold text-primary-foreground leading-tight mb-6">
             Helping young men play safe AND have fun
           </h1>
 
