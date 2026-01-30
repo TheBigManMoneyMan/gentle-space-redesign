@@ -42,7 +42,7 @@ const HeroSection = () => {
             alt={image.alt}
             className={`absolute inset-0 w-full h-full object-cover mix-blend-overlay transition-opacity duration-1000 ${
               index === 2 ? "object-[center_70%]" : "object-center"
-            } ${index === currentSlide ? "opacity-60" : "opacity-0"}`}
+            } ${index === currentSlide ? "opacity-50" : "opacity-0"}`}
           />
         ))}
       </div>
