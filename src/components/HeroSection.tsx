@@ -1,21 +1,26 @@
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
-import heroAthletesClass from "@/assets/hero-athletes-class.jpg";
-import heroFootball from "@/assets/hero-football.jpeg";
-import heroHockey from "@/assets/hero-hockey.jpeg";
+import heroBasketball from "@/assets/hero-basketball.jpg";
+import heroFootball from "@/assets/hero-football-new.jpg";
+import heroFootballTeam from "@/assets/hero-football-team.jpg";
+import heroHockey from "@/assets/hero-hockey-new.jpg";
 
 const heroImages = [
   {
     src: heroFootball,
-    alt: "Football players during practice, learning teamwork and respect",
+    alt: "Football players during a game, demonstrating teamwork",
+  },
+  {
+    src: heroFootballTeam,
+    alt: "Football team running together on the field",
   },
   {
     src: heroHockey,
-    alt: "Hockey players in action, demonstrating sportsmanship",
+    alt: "Hockey players in action on the ice rink",
   },
   {
-    src: heroAthletesClass,
-    alt: "Young athletes engaged in a consent education workshop discussion",
+    src: heroBasketball,
+    alt: "Basketball players during an indoor game",
   },
 ];
 
