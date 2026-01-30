@@ -34,7 +34,7 @@ const HeroSection = () => {
       {/* Background slideshow */}
       <div className="absolute inset-0 gradient-hero">
         <div className="absolute inset-0 bg-gradient-to-r from-primary/60 via-primary/45 to-primary/30 z-10" />
-        
+
         {heroImages.map((image, index) => (
           <img
             key={index}
@@ -42,9 +42,7 @@ const HeroSection = () => {
             alt={image.alt}
             className={`absolute inset-0 w-full h-full object-cover mix-blend-overlay transition-opacity duration-1000 ${
               index === 2 ? "object-[center_70%]" : "object-center"
-            } ${
-              index === currentSlide ? "opacity-40" : "opacity-0"
-            }`}
+            } ${index === currentSlide ? "opacity-40" : "opacity-0"}`}
           />
         ))}
       </div>
@@ -56,8 +54,8 @@ const HeroSection = () => {
             key={index}
             onClick={() => setCurrentSlide(index)}
             className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-              index === currentSlide 
-                ? "bg-primary-foreground w-8" 
+              index === currentSlide
+                ? "bg-primary-foreground w-8"
                 : "bg-primary-foreground/40 hover:bg-primary-foreground/60"
             }`}
             aria-label={`Go to slide ${index + 1}`}
@@ -66,7 +64,7 @@ const HeroSection = () => {
       </div>
 
       {/* Green accent triangle */}
-      <div 
+      <div
         className="absolute top-0 left-0 w-1/3 h-full gradient-green-overlay z-10"
         style={{
           clipPath: "polygon(0 0, 100% 0, 0 100%)",
@@ -79,10 +77,10 @@ const HeroSection = () => {
           <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-serif font-bold text-primary-foreground leading-tight mb-6">
             Helping young men play safe AND have fun
           </h1>
-          
+
           <p className="text-lg md:text-xl text-primary-foreground/90 mb-8 max-w-xl leading-relaxed">
-            Trauma- informed consent education to empower young people to understand
-            boundaries and power dynamics, and thrive in healthy relationships!
+            Trauma- informed consent education to empower young people to understand boundaries and power dynamics, and
+            thrive in healthy relationships!
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4">
