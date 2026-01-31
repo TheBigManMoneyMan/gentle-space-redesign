@@ -29,7 +29,7 @@ const TeamSection = () => {
       <div className="container-wide mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-2">Meet the Team</h2>
+          <h2 className="text-4xl md:text-5xl sans-serif font-bold text-foreground mb-2">Meet the Team</h2>
           <div className="w-12 h-1 bg-foreground mx-auto mt-4" />
         </div>
 
@@ -54,7 +54,7 @@ const TeamSection = () => {
               {/* Content */}
               <div className="p-6 text-primary-foreground">
                 <p className="text-sm font-medium opacity-80 uppercase tracking-wide mb-1">{member.role}</p>
-                <h3 className="text-xl font-serif font-bold mb-4">{member.name}</h3>
+                <h3 className="text-xl sans-serif font-bold mb-4">{member.name}</h3>
                 <p className="text-sm leading-relaxed opacity-90 mb-4">{member.bio}</p>
                 {member.landAcknowledgment && (
                   <p className="text-sm leading-relaxed opacity-75 italic mb-6">{member.landAcknowledgment}</p>

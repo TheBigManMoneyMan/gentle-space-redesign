@@ -7,10 +7,10 @@ const Footer = () => {
         <div className="grid md:grid-cols-3 gap-12 mb-12">
           {/* Brand */}
           <div>
-            <h3 className="font-serif text-2xl font-bold mb-4">Consent Coach</h3>
+            <h3 className="sans-serif text-2xl font-bold mb-4">Consent Coach</h3>
             <p className="text-background/70 leading-relaxed mb-6">
-              Empowering young people with the tools they need to navigate relationships 
-              with clarity, confidence, and care.
+              Empowering young people with the tools they need to navigate relationships with clarity, confidence, and
+              care.
             </p>
             <div className="flex gap-4">
               <a
@@ -78,12 +78,8 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-background/20 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-background/60 text-sm">
-            © {new Date().getFullYear()} Consent Coach. All rights reserved.
-          </p>
-          <p className="text-background/60 text-sm">
-            Trauma-informed • Consent-centered • Empowerment-focused
-          </p>
+          <p className="text-background/60 text-sm">© {new Date().getFullYear()} Consent Coach. All rights reserved.</p>
+          <p className="text-background/60 text-sm">Trauma-informed • Consent-centered • Empowerment-focused</p>
         </div>
       </div>
     </footer>

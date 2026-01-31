@@ -65,7 +65,7 @@ const ContactSection = () => {
       <div className="container-wide mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16 max-w-2xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-4">Get in Touch</h2>
+          <h2 className="text-4xl md:text-5xl sans-serif font-bold text-foreground mb-4">Get in Touch</h2>
           <p className="text-muted-foreground text-lg">
             We'd love to hear from you. Reach out to start a conversation about how we can support your journey.
           </p>
@@ -74,7 +74,7 @@ const ContactSection = () => {
         <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
           {/* Contact Form */}
           <div className="bg-card rounded-xl p-8 shadow-soft">
-            <h3 className="text-xl font-serif font-semibold text-foreground mb-6">Send Us a Message</h3>
+            <h3 className="text-xl sans-serif font-semibold text-foreground mb-6">Send Us a Message</h3>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
@@ -154,7 +154,7 @@ const ContactSection = () => {
           {/* Contact Info */}
           <div className="space-y-8">
             <div>
-              <h3 className="text-xl font-serif font-semibold text-foreground mb-6">Contact Information</h3>
+              <h3 className="text-xl sans-serif font-semibold text-foreground mb-6">Contact Information</h3>
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center flex-shrink-0">

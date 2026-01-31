@@ -42,7 +42,7 @@ const ServicesSection = () => {
       <div className="container-wide mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16 max-w-2xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-4">Services & Offerings</h2>
+          <h2 className="text-4xl md:text-5xl sans-serif font-bold text-foreground mb-4">Services & Offerings</h2>
           <p className="text-muted-foreground text-lg">Flexible programs designed to meet you where you are</p>
         </div>
 
@@ -59,7 +59,7 @@ const ServicesSection = () => {
                   <div className="w-12 h-12 rounded-lg bg-primary flex items-center justify-center flex-shrink-0">
                     <IconComponent className="w-6 h-6 text-primary-foreground" />
                   </div>
-                  <h3 className="text-xl font-serif font-semibold text-foreground">{service.title}</h3>
+                  <h3 className="text-xl sans-serif font-semibold text-foreground">{service.title}</h3>
                 </div>
 
                 <div className="space-y-4">

@@ -27,27 +27,18 @@ const TestimonialsSection = () => {
       <div className="container-wide mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-foreground">
-            Student Testimonials
-          </h2>
+          <h2 className="text-4xl md:text-5xl sans-serif font-bold text-foreground">Student Testimonials</h2>
         </div>
 
         {/* Testimonials Grid */}
         <div className="grid md:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
-            <div
-              key={index}
-              className="relative bg-card rounded-xl p-8 shadow-soft border-t-4 border-accent"
-            >
+            <div key={index} className="relative bg-card rounded-xl p-8 shadow-soft border-t-4 border-accent">
               <Quote className="w-10 h-10 text-accent/30 mb-4" />
-              <blockquote className="text-foreground leading-relaxed mb-6">
-                "{testimonial.quote}"
-              </blockquote>
+              <blockquote className="text-foreground leading-relaxed mb-6">"{testimonial.quote}"</blockquote>
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
-                  <span className="text-primary-foreground font-semibold text-sm">
-                    {testimonial.name.charAt(0)}
-                  </span>
+                  <span className="text-primary-foreground font-semibold text-sm">{testimonial.name.charAt(0)}</span>
                 </div>
                 <div>
                   <p className="font-semibold text-foreground">{testimonial.name}</p>
