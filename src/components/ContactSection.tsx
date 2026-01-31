@@ -34,7 +34,7 @@ const ContactSection = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validate reCAPTCHA
     if (!recaptchaToken) {
       setRecaptchaError(true);
@@ -48,7 +48,7 @@ const ContactSection = () => {
 
     // Form submission logic would go here
     console.log("Form submitted:", { ...formData, recaptchaToken });
-    
+
     toast({
       title: "Message Sent!",
       description: "Thank you for reaching out. We'll get back to you soon.",
@@ -61,25 +61,20 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="section-padding bg-secondary/50">
+    <section id="contact" className="section-padding bg-secondary">
       <div className="container-wide mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16 max-w-2xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-4">
-            Get in Touch
-          </h2>
+          <h2 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-4">Get in Touch</h2>
           <p className="text-muted-foreground text-lg">
-            We'd love to hear from you. Reach out to start a conversation about how 
-            we can support your journey.
+            We'd love to hear from you. Reach out to start a conversation about how we can support your journey.
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
           {/* Contact Form */}
           <div className="bg-card rounded-xl p-8 shadow-soft">
-            <h3 className="text-xl font-serif font-semibold text-foreground mb-6">
-              Send Us a Message
-            </h3>
+            <h3 className="text-xl font-serif font-semibold text-foreground mb-6">Send Us a Message</h3>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
@@ -132,7 +127,7 @@ const ContactSection = () => {
                   Yes, subscribe me to your newsletter
                 </label>
               </div>
-              
+
               {/* reCAPTCHA Widget */}
               <div className="flex flex-col items-start gap-2">
                 <ReCAPTCHA
@@ -149,13 +144,8 @@ const ContactSection = () => {
                   </p>
                 )}
               </div>
-              
-              <Button 
-                type="submit" 
-                variant="cta" 
-                className="w-full"
-                disabled={!recaptchaToken}
-              >
+
+              <Button type="submit" variant="cta" className="w-full" disabled={!recaptchaToken}>
                 Send Message
               </Button>
             </form>
@@ -164,9 +154,7 @@ const ContactSection = () => {
           {/* Contact Info */}
           <div className="space-y-8">
             <div>
-              <h3 className="text-xl font-serif font-semibold text-foreground mb-6">
-                Contact Information
-              </h3>
+              <h3 className="text-xl font-serif font-semibold text-foreground mb-6">Contact Information</h3>
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center flex-shrink-0">
@@ -185,7 +173,10 @@ const ContactSection = () => {
                   </div>
                   <div>
                     <p className="font-medium text-foreground">Email</p>
-                    <a href="mailto:info@consentcoach.com" className="text-muted-foreground hover:text-accent transition-colors">
+                    <a
+                      href="mailto:info@consentcoach.com"
+                      className="text-muted-foreground hover:text-accent transition-colors"
+                    >
                       info@consentcoach.com
                     </a>
                   </div>
@@ -197,7 +188,8 @@ const ContactSection = () => {
                   <div>
                     <p className="font-medium text-foreground">Location</p>
                     <p className="text-muted-foreground">
-                      500 Terry Francine St.<br />
+                      500 Terry Francine St.
+                      <br />
                       San Francisco, CA 94158
                     </p>
                   </div>
@@ -209,8 +201,8 @@ const ContactSection = () => {
             <div className="bg-card rounded-xl p-6 shadow-soft border-l-4 border-accent">
               <p className="text-foreground font-medium mb-2">Safe & Confidential</p>
               <p className="text-muted-foreground text-sm leading-relaxed">
-                All consultations are conducted in a safe, confidential environment. 
-                We practice trauma-informed approaches and prioritize your comfort and autonomy at every step.
+                All consultations are conducted in a safe, confidential environment. We practice trauma-informed
+                approaches and prioritize your comfort and autonomy at every step.
               </p>
             </div>
           </div>

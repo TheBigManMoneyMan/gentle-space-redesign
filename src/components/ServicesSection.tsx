@@ -38,7 +38,7 @@ const ServicesSection = () => {
   ];
 
   return (
-    <section id="services" className="section-padding bg-secondary/50">
+    <section id="services" className="section-padding bg-secondary">
       <div className="container-wide mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16 max-w-2xl mx-auto">
