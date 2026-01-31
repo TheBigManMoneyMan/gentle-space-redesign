@@ -13,7 +13,7 @@ const ApproachSection = () => {
       <div className="container-wide mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16 max-w-3xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-6">Our Approach</h2>
+          <h2 className="text-4xl md:text-5xl sans-serif font-bold text-foreground mb-6">Our Approach</h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
             At the heart of our work is a deep commitment to transforming how people understand and practice consent —
             not just as a checklist, but as an embodied, relational skill that opens the door to clarity, connection,
@@ -32,7 +32,7 @@ const ApproachSection = () => {
 
         {/* What We Help With */}
         <div className="max-w-4xl mx-auto mb-16">
-          <h3 className="text-2xl font-serif font-semibold text-foreground mb-8 text-center">
+          <h3 className="text-2xl sans-serif font-semibold text-foreground mb-8 text-center">
             Through experiential education grounded in the Wheel of Consent, we support teams and classrooms full of
             young adults to discover how to:
           </h3>
