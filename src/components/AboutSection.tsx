@@ -25,12 +25,12 @@ const AboutSection = () => {
 
           {/* Text Content */}
           <div className="space-y-6">
-            <p className="text-lg text-foreground leading-relaxed">
+            <p className="text-foreground leading-relaxed" style={{ fontSize: '22px' }}>
               We are coaches dedicated to teaching young people. We are committed to providing a safe and supportive
               environment in which they can develop practical embodied skills in consent, boundaries, and power
               dynamics, and nurture a culture of respect.
             </p>
-            <p className="text-muted-foreground leading-relaxed">
+            <p className="text-muted-foreground leading-relaxed" style={{ fontSize: '22px' }}>
               Through our coaching, athletes gain the tools to stay safe and have fun, empowering them to navigate
               challenging situations and build capacity for decision-making in heightened states of intensity.
             </p>

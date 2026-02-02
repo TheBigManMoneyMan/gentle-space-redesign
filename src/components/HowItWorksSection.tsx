@@ -33,7 +33,7 @@ const HowItWorksSection = () => {
                 <span className="text-3xl sans-serif font-bold text-accent">{String(index + 1).padStart(2, "0")}</span>
                 <h3 className="text-xl sans-serif font-semibold text-foreground">{step.title}</h3>
               </div>
-              <p className="text-muted-foreground leading-relaxed">{step.description}</p>
+              <p className="text-muted-foreground leading-relaxed" style={{ fontSize: '22px' }}>{step.description}</p>
             </div>
           ))}
         </div>
