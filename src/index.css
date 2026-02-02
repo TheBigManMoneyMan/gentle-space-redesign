@@ -29,8 +29,8 @@
     --muted: 200 50% 20%;
     --muted-foreground: 0 0% 100%;
 
-    /* Accent - Teal green */
-    --accent: 160 93% 23%;
+    /* Accent - Electric green */
+    --accent: 140 100% 40%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
@@ -82,7 +82,7 @@
     --muted: 200 50% 15%;
     --muted-foreground: 0 0% 100%;
 
-    --accent: 160 93% 23%;
+    --accent: 140 100% 40%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 62.8% 30.6%;
