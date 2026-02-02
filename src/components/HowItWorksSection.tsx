@@ -18,7 +18,7 @@ const HowItWorksSection = () => {
   ];
 
   return (
-    <section className="section-padding bg-secondary-dark">
+    <section className="section-padding bg-secondary">
       <div className="container-wide mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">

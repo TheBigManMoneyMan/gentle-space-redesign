@@ -9,7 +9,7 @@ const ApproachSection = () => {
   ];
 
   return (
-    <section id="approach" className="section-padding bg-secondary">
+    <section id="approach" className="section-padding bg-secondary-dark">
       <div className="container-wide mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16 max-w-3xl mx-auto">
