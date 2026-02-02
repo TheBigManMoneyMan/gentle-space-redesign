@@ -20,7 +20,7 @@ const Header = () => {
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <a href="#" className="sans-serif text-xl lg:text-2xl font-bold text-foreground">
-            Consent Coach
+            Consent Coaching
           </a>
 
           {/* Desktop Navigation */}
@@ -29,8 +29,7 @@ const Header = () => {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-muted-foreground hover:text-foreground transition-colors duration-200 font-medium"
-                style={{ fontSize: '22px' }}
+                className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm font-medium"
               >
                 {link.label}
               </a>
