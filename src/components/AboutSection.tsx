@@ -8,7 +8,7 @@ const AboutSection = () => {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl sans-serif font-bold text-foreground mb-4">About</h2>
-          <p className="text-muted-foreground text-lg">Empowering Young Athletes</p>
+          <p className="text-muted-foreground text-lg">Empowering The Next Generation</p>
         </div>
 
         {/* Main Content Grid */}
