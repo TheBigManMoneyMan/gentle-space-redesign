@@ -3,7 +3,7 @@ import coachImage from "@/assets/FounderImage.png";
 
 const AboutSection = () => {
   return (
-    <section id="about" className="section-padding bg-secondary/50">
+    <section id="about" className="section-padding bg-secondary">
       <div className="container-wide mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
