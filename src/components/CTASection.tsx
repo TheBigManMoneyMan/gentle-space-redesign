@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 
 const CTASection = () => {
   return (
-    <section className="section-padding gradient-hero relative overflow-hidden">
+    <section className="section-padding bg-secondary relative overflow-hidden">
       {/* Green accent */}
       <div
         className="absolute top-0 right-0 w-1/4 h-full gradient-green-overlay"
