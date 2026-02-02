@@ -61,7 +61,7 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="section-padding bg-secondary">
+    <section id="contact" className="section-padding bg-secondary-dark">
       <div className="container-wide mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16 max-w-2xl mx-auto">

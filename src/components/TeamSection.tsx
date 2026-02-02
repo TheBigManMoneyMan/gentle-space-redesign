@@ -25,7 +25,7 @@ const TeamSection = () => {
   ];
 
   return (
-    <section id="team" className="section-padding bg-secondary-dark">
+    <section id="team" className="section-padding bg-secondary">
       <div className="container-wide mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
