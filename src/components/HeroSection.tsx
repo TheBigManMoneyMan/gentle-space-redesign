@@ -83,7 +83,7 @@ const HeroSection = () => {
             Helping young men play safe AND have fun
           </h1>
 
-          <p className="text-lg md:text-xl text-primary-foreground/90 mb-8 max-w-xl leading-relaxed">
+          <p className="text-primary-foreground/90 mb-8 max-w-xl leading-relaxed" style={{ fontSize: '22px' }}>
             Trauma- informed consent education to empower young people to understand boundaries and power dynamics, and
             thrive in healthy relationships!
           </p>

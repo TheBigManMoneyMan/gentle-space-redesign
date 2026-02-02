@@ -29,7 +29,8 @@ const Header = () => {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-lg font-medium"
+                className="text-muted-foreground hover:text-foreground transition-colors duration-200 font-medium"
+                style={{ fontSize: '22px' }}
               >
                 {link.label}
               </a>

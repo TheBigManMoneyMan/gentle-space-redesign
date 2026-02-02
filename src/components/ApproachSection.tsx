@@ -14,7 +14,7 @@ const ApproachSection = () => {
         {/* Section Header */}
         <div className="text-center mb-16 max-w-3xl mx-auto">
           <h2 className="text-4xl md:text-5xl sans-serif font-bold text-foreground mb-6">Our Approach</h2>
-          <p className="text-lg text-muted-foreground leading-relaxed">
+          <p className="text-muted-foreground leading-relaxed" style={{ fontSize: '22px' }}>
             At the heart of our work is a deep commitment to transforming how people understand and practice consent —
             not just as a checklist, but as an embodied, relational skill that opens the door to clarity, connection,
             agency, and pleasure.
@@ -23,7 +23,7 @@ const ApproachSection = () => {
 
         {/* Key Message */}
         <div className="bg-primary text-primary-foreground rounded-2xl p-8 lg:p-12 mb-16">
-          <p className="text-lg lg:text-xl leading-relaxed text-center max-w-3xl mx-auto">
+          <p className="leading-relaxed text-center max-w-3xl mx-auto" style={{ fontSize: '22px' }}>
             In the wake of the #metoo movement, we have discovered that "getting permission" or "she didn't say no" is
             not good enough. Now more than ever, we need a new language around the nuances of consent that includes
             awareness of embodied and systemic oppression, is trauma-sensitive, and simple enough to teach to youth.
@@ -49,12 +49,12 @@ const ApproachSection = () => {
 
         {/* Closing Statement */}
         <div className="text-center max-w-3xl mx-auto space-y-6">
-          <p className="text-muted-foreground leading-relaxed">
+          <p className="text-muted-foreground leading-relaxed" style={{ fontSize: '22px' }}>
             Using experiential and somatic practices, participants learn to distinguish between receiving and giving,
             recognize what is genuinely wanted versus expected, and communicate boundaries and desires in ways that are
             clear, embodied, and respectful.
           </p>
-          <p className="text-foreground font-medium">
+          <p className="text-foreground font-medium" style={{ fontSize: '22px' }}>
             Ultimately, this work is about harm prevention, empowerment, and culture change — equipping the next
             generation with the tools they need to navigate power, pressure, and relationships with clarity, confidence,
             and care.
