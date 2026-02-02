@@ -158,17 +158,6 @@ const ContactSection = () => {
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center flex-shrink-0">
-                    <Phone className="w-5 h-5 text-primary-foreground" />
-                  </div>
-                  <div>
-                    <p className="font-medium text-foreground">Phone</p>
-                    <a href="tel:123-456-7890" className="text-muted-foreground hover:text-accent transition-colors">
-                      123-456-7890
-                    </a>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center flex-shrink-0">
                     <Mail className="w-5 h-5 text-primary-foreground" />
                   </div>
                   <div>
@@ -179,19 +168,6 @@ const ContactSection = () => {
                     >
                       info@consentcoach.com
                     </a>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center flex-shrink-0">
-                    <MapPin className="w-5 h-5 text-primary-foreground" />
-                  </div>
-                  <div>
-                    <p className="font-medium text-foreground">Location</p>
-                    <p className="text-muted-foreground">
-                      500 Terry Francine St.
-                      <br />
-                      San Francisco, CA 94158
-                    </p>
                   </div>
                 </div>
               </div>
