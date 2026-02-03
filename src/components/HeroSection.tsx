@@ -4,6 +4,8 @@ import heroBasketball from "@/assets/hero-basketball.jpg";
 import heroFootball from "@/assets/hero-football-new.jpg";
 import heroFootballTeam from "@/assets/hero-football-team.jpg";
 import heroHockey from "@/assets/hero-hockey-new.jpg";
+import heroAudience from "@/assets/hero-audience.jpg";
+import heroLectureHall from "@/assets/hero-lecture-hall.jpg";
 
 const heroImages = [
   {
@@ -15,8 +17,16 @@ const heroImages = [
     alt: "Football players during a game, demonstrating teamwork",
   },
   {
+    src: heroAudience,
+    alt: "Audience attentively listening during a presentation",
+  },
+  {
     src: heroBasketball,
     alt: "Basketball players during an indoor game",
+  },
+  {
+    src: heroLectureHall,
+    alt: "Students in a modern lecture hall during an educational session",
   },
   {
     src: heroFootballTeam,
