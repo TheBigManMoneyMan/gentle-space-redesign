@@ -1,4 +1,4 @@
-import { Facebook, Twitter, Linkedin } from "lucide-react";
+import { Globe } from "lucide-react";
 import founderImage from "@/assets/FounderImage.png";
 import teamJay from "@/assets/jaypic.png";
 
@@ -11,16 +11,16 @@ const TeamSection = () => {
       landAcknowledgment:
         "I am a settler of French and Ukrainian descent, and currently live on the unceded land of the Lekwungen speaking first nations peoples, colonially known as Victoria, BC. Canada.",
       image: founderImage,
-      socials: { facebook: "#", twitter: "#", linkedin: "#" },
+      website: "https://www.corinnediachuk.com",
     },
     {
       name: "Jay Wade",
       role: "Group Facilitator and Counsellor",
       bio: "I am currently completing a Master of Counselling Psychology degree, and I am also a Certified Sexual Health Educator and Somatic Coach, with over 20 years of experience supporting youth and adults as a Counsellor, Facilitator, youth and family worker, and Educator.",
       landAcknowledgment:
-        "I live and work on the stolen land of the Quw’utsun Nation, located on what’s colonially known as Vancouver Island, BC. I am a settler of Italian, Irish, and English ancestry and grew up in the Great Lakes region on Treaty 19 lands.",
+        "I live and work on the stolen land of the Quw'utsun Nation, located on what's colonially known as Vancouver Island, BC. I am a settler of Italian, Irish, and English ancestry and grew up in the Great Lakes region on Treaty 19 lands.",
       image: teamJay,
-      socials: { facebook: "#", twitter: "#", linkedin: "#" },
+      website: "https://www.jaywade.ca",
     },
   ];
 
@@ -60,36 +60,19 @@ const TeamSection = () => {
                   <p className="text-sm leading-relaxed opacity-75 italic mb-6">{member.landAcknowledgment}</p>
                 )}
 
-                {/* Social Links */}
-                <div className="flex gap-3">
-                  {member.socials.facebook && (
-                    <a
-                      href={member.socials.facebook}
-                      className="w-9 h-9 rounded-full bg-primary-foreground/20 flex items-center justify-center hover:bg-primary-foreground/30 transition-colors"
-                      aria-label={`${member.name} on Facebook`}
-                    >
-                      <Facebook className="w-4 h-4" />
-                    </a>
-                  )}
-                  {member.socials.twitter && (
-                    <a
-                      href={member.socials.twitter}
-                      className="w-9 h-9 rounded-full bg-primary-foreground/20 flex items-center justify-center hover:bg-primary-foreground/30 transition-colors"
-                      aria-label={`${member.name} on Twitter`}
-                    >
-                      <Twitter className="w-4 h-4" />
-                    </a>
-                  )}
-                  {member.socials.linkedin && (
-                    <a
-                      href={member.socials.linkedin}
-                      className="w-9 h-9 rounded-full bg-primary-foreground/20 flex items-center justify-center hover:bg-primary-foreground/30 transition-colors"
-                      aria-label={`${member.name} on LinkedIn`}
-                    >
-                      <Linkedin className="w-4 h-4" />
-                    </a>
-                  )}
-                </div>
+                {/* Website Link */}
+                {member.website && (
+                  <a
+                    href={member.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-sm text-primary-foreground/80 hover:text-primary-foreground transition-colors"
+                    aria-label={`Visit ${member.name}'s website`}
+                  >
+                    <Globe className="w-4 h-4" />
+                    <span>{member.website.replace("https://www.", "")}</span>
+                  </a>
+                )}
               </div>
             </div>
           ))}
