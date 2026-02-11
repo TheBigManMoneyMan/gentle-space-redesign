@@ -1,6 +1,7 @@
 import { Globe } from "lucide-react";
 import founderImage from "@/assets/FounderImage.png";
 import teamJay from "@/assets/jaypic.png";
+import teamOliver from "@/assets/team-oliver.jpeg";
 
 const TeamSection = () => {
   const teamMembers = [
@@ -21,6 +22,14 @@ const TeamSection = () => {
         "I live and work on the stolen land of the Quw'utsun Nation, located on what's colonially known as Vancouver Island, BC. I am a settler of Italian, Irish, and English ancestry and grew up in the Great Lakes region on Treaty 19 lands.",
       image: teamJay,
       website: "https://www.jaywade.ca",
+    },
+    {
+      name: "Oliver Griffin",
+      role: "Athlete Consultant and Tech Support",
+      bio: "I am a web developer with 5 years of experience currently running Griffin Designs, while pursuing sports at the collegiate level. I specialize in providing fast, on demand service, and clean, cost effective results. My athletic experience consists of wrestling, volleyball, gymnastics, and kickboxing.",
+      landAcknowledgment: "",
+      image: teamOliver,
+      website: "https://griffindesigns.io/",
     },
   ];
 
