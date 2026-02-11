@@ -13,7 +13,7 @@ const HowItWorksSection = () => {
     {
       title: "Progress Tracking",
       description:
-        "We believe that the skills we have to offer wil equip the participants with the tools and knowledge necessary to stay safe,  have fun, and thrive; not only in the dating field, but also in the classroom, and on the team.",
+        "Following the training seminar, participants complete an online, self-paced assessment designed to support integration and ensure comprehension of the material. The assessment may be taken multiple times, allowing students to learn at their own pace and demonstrate full understanding by achieving a 100% score.",
     },
   ];
 
@@ -33,7 +33,9 @@ const HowItWorksSection = () => {
                 <span className="text-3xl sans-serif font-bold text-accent">{String(index + 1).padStart(2, "0")}</span>
                 <h3 className="text-xl sans-serif font-semibold text-foreground">{step.title}</h3>
               </div>
-              <p className="text-muted-foreground leading-relaxed" style={{ fontSize: '22px' }}>{step.description}</p>
+              <p className="text-muted-foreground leading-relaxed" style={{ fontSize: "22px" }}>
+                {step.description}
+              </p>
             </div>
           ))}
         </div>
