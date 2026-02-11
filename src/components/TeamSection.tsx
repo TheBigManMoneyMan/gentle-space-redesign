@@ -54,7 +54,9 @@ const TeamSection = () => {
                 <img
                   src={member.image}
                   alt={`${member.name} - ${member.role}`}
-                  className={`w-full h-72 object-cover rounded-lg ${
+                  className={`w-full h-72 rounded-lg ${
+                    member.name.includes("Oliver") ? "object-contain" : "object-cover"
+                  } ${
                     member.name.includes("Jay") ? "object-[center_45%]" : "object-top"
                   }`}
                 />
