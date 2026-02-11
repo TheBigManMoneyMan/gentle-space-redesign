@@ -51,7 +51,7 @@ const TeamSection = () => {
             >
               {/* Image */}
               <div className="p-6 pb-0">
-                <div className={`rounded-lg overflow-hidden h-72 ${member.name.includes("Oliver") ? "bg-muted flex items-center justify-center" : ""}`}>
+                <div className={`rounded-lg overflow-hidden ${member.name.includes("Oliver") ? "bg-muted w-fit mx-auto" : "h-72"}`}>
                   <img
                     src={member.image}
                     alt={`${member.name} - ${member.role}`}
