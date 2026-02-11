@@ -47,7 +47,9 @@ const TeamSection = () => {
           {teamMembers.map((member, index) => (
             <div
               key={index}
-              className="bg-primary rounded-xl overflow-hidden shadow-card hover:shadow-elevated transition-shadow duration-300"
+              className={`bg-primary rounded-xl overflow-hidden shadow-card hover:shadow-elevated transition-shadow duration-300 ${
+                teamMembers.length % 2 !== 0 && index === teamMembers.length - 1 ? "md:col-span-2 md:max-w-[calc(50%-1rem)] md:mx-auto" : ""
+              }`}
             >
               {/* Image */}
               <div className="p-6 pb-0">
