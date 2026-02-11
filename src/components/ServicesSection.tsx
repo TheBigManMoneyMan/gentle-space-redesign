@@ -16,10 +16,10 @@ const ServicesSection = () => {
     },
     {
       icon: Users,
-      title: "Group Workshops",
+      title: "Training Camps",
       forWho: "Sports teams, school groups, and youth organizations",
       helpsWidth: "Team culture, mutual respect, collective understanding of consent, and accountability",
-      expect: "Interactive, engaging sessions with practical exercises and group discussions",
+      expect: "3 Days of Interactive, engaging sessions with practical exercises and group discussions",
     },
     {
       icon: GraduationCap,
