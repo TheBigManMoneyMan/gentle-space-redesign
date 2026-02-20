@@ -19,7 +19,7 @@ const ContactSection = () => {
   const [recaptchaError, setRecaptchaError] = useState(false);
 
   // Replace with your actual reCAPTCHA site key
-  const RECAPTCHA_SITE_KEY = "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"; // Test key - replace for production
+  const RECAPTCHA_SITE_KEY = "6LedfHIsAAAAAIu4k6_-2fgz6FNVWtPEnVs3Xd4B";
 
   const handleRecaptchaChange = (token: string | null) => {
     setRecaptchaToken(token);
