@@ -28,8 +28,9 @@ const ApproachSection = () => {
         <div className="bg-primary text-primary-foreground rounded-2xl p-8 lg:p-12 mb-16">
           <p className="leading-relaxed text-center max-w-3xl mx-auto" style={{ fontSize: "22px" }}>
             In the wake of the #metoo movement, we have discovered that "getting permission" or "she didn't say no" is
-            not good enough. Now more than ever, we need a new language around the nuances of consent that includes
-            awareness of embodied and systemic oppression, is trauma-sensitive, and simple enough to teach to youth.
+            not good enough. Now more than ever, we need this new language around the nuances of consent that includes
+            awareness of systemic and embodied oppression, is trauma-informed, includes pleasure, and is simple enough
+            to teach to our youth.
           </p>
         </div>
 
