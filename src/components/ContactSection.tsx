@@ -1,62 +1,26 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, MapPin } from "lucide-react";
-import { useState, useRef } from "react";
-import ReCAPTCHA from "react-google-recaptcha";
+import { Mail } from "lucide-react";
+import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
 
 const ContactSection = () => {
   const { toast } = useToast();
-  const recaptchaRef = useRef<ReCAPTCHA>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
     subscribe: false,
   });
-  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
-  const [recaptchaError, setRecaptchaError] = useState(false);
-
-  // Replace with your actual reCAPTCHA site key
-  const RECAPTCHA_SITE_KEY = "6LedfHIsAAAAAIu4k6_-2fgz6FNVWtPEnVs3Xd4B";
-
-  const handleRecaptchaChange = (token: string | null) => {
-    setRecaptchaToken(token);
-    if (token) {
-      setRecaptchaError(false);
-    }
-  };
-
-  const handleRecaptchaExpired = () => {
-    setRecaptchaToken(null);
-  };
-
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!recaptchaToken) {
-      setRecaptchaError(true);
-      toast({
-        title: "Verification Required",
-        description: "Please complete the reCAPTCHA verification to submit the form.",
-        variant: "destructive",
-      });
-      return;
-    }
-
     setIsSubmitting(true);
     try {
-      const { data, error } = await supabase.functions.invoke('verify-recaptcha', {
-        body: { token: recaptchaToken, formData },
-      });
-
-      if (error || !data?.success) {
-        throw new Error(data?.error || error?.message || 'Verification failed');
-      }
+      // TODO: implement form submission logic (e.g. send email, store in DB)
+      console.log('Form submission:', formData);
 
       toast({
         title: "Message Sent!",
@@ -64,8 +28,6 @@ const ContactSection = () => {
       });
 
       setFormData({ name: "", email: "", message: "", subscribe: false });
-      setRecaptchaToken(null);
-      recaptchaRef.current?.reset();
     } catch (err: any) {
       toast({
         title: "Error",
@@ -80,7 +42,6 @@ const ContactSection = () => {
   return (
     <section id="contact" className="section-padding bg-secondary-dark">
       <div className="container-wide mx-auto">
-        {/* Section Header */}
         <div className="text-center mb-16 max-w-2xl mx-auto">
           <h2 className="text-4xl md:text-5xl sans-serif font-bold text-foreground mb-4">Get in Touch</h2>
           <p className="text-muted-foreground text-lg">
@@ -89,86 +50,31 @@ const ContactSection = () => {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
-          {/* Contact Form */}
           <div className="bg-card rounded-xl p-8 shadow-soft">
             <h3 className="text-xl sans-serif font-semibold text-foreground mb-6">Send Us a Message</h3>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
-                  Name
-                </label>
-                <Input
-                  id="name"
-                  type="text"
-                  placeholder="Your name"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  required
-                />
+                <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">Name</label>
+                <Input id="name" type="text" placeholder="Your name" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} required />
               </div>
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
-                  Email
-                </label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="your@email.com"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  required
-                />
+                <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">Email</label>
+                <Input id="email" type="email" placeholder="your@email.com" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} required />
               </div>
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
-                  Message
-                </label>
-                <Textarea
-                  id="message"
-                  placeholder="Tell us about your needs..."
-                  rows={4}
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  required
-                />
+                <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">Message</label>
+                <Textarea id="message" placeholder="Tell us about your needs..." rows={4} value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} required />
               </div>
               <div className="flex items-center gap-3">
-                <input
-                  type="checkbox"
-                  id="subscribe"
-                  className="w-4 h-4 rounded border-border text-accent focus:ring-accent"
-                  checked={formData.subscribe}
-                  onChange={(e) => setFormData({ ...formData, subscribe: e.target.checked })}
-                />
-                <label htmlFor="subscribe" className="text-sm text-muted-foreground">
-                  Yes, subscribe me to your newsletter
-                </label>
+                <input type="checkbox" id="subscribe" className="w-4 h-4 rounded border-border text-accent focus:ring-accent" checked={formData.subscribe} onChange={(e) => setFormData({ ...formData, subscribe: e.target.checked })} />
+                <label htmlFor="subscribe" className="text-sm text-muted-foreground">Yes, subscribe me to your newsletter</label>
               </div>
-
-              {/* reCAPTCHA Widget */}
-              <div className="flex flex-col items-start gap-2">
-                <ReCAPTCHA
-                  ref={recaptchaRef}
-                  sitekey={RECAPTCHA_SITE_KEY}
-                  onChange={handleRecaptchaChange}
-                  onExpired={handleRecaptchaExpired}
-                  theme="light"
-                  size="normal"
-                />
-                {recaptchaError && (
-                  <p className="text-sm text-destructive" role="alert">
-                    Please verify that you're not a robot
-                  </p>
-                )}
-              </div>
-
-              <Button type="submit" variant="cta" className="w-full" disabled={!recaptchaToken || isSubmitting}>
+              <Button type="submit" variant="cta" className="w-full" disabled={isSubmitting}>
                 {isSubmitting ? "Sending..." : "Send Message"}
               </Button>
             </form>
           </div>
 
-          {/* Contact Info */}
           <div className="space-y-8">
             <div>
               <h3 className="text-xl sans-serif font-semibold text-foreground mb-6">Contact Information</h3>
@@ -179,23 +85,15 @@ const ContactSection = () => {
                   </div>
                   <div>
                     <p className="font-medium text-foreground">Email</p>
-                    <a
-                      href="mailto:info@consentcoach.com"
-                      className="text-muted-foreground hover:text-accent transition-colors"
-                    >
-                      info@consentcoach.com
-                    </a>
+                    <a href="mailto:info@consentcoach.com" className="text-muted-foreground hover:text-accent transition-colors">info@consentcoach.com</a>
                   </div>
                 </div>
               </div>
             </div>
-
-            {/* Trust Statement */}
             <div className="bg-card rounded-xl p-6 shadow-soft border-l-4 border-accent">
               <p className="text-foreground font-medium mb-2">Safe & Confidential</p>
               <p className="text-muted-foreground text-sm leading-relaxed">
-                All consultations are conducted in a safe, confidential environment. We practice trauma-informed
-                approaches and prioritize your comfort and autonomy at every step.
+                All consultations are conducted in a safe, confidential environment. We practice trauma-informed approaches and prioritize your comfort and autonomy at every step.
               </p>
             </div>
           </div>
