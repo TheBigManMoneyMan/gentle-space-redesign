@@ -5,6 +5,7 @@ import { Mail, Phone, MapPin } from "lucide-react";
 import { useState, useRef } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const ContactSection = () => {
   const { toast } = useToast();
@@ -32,10 +33,11 @@ const ContactSection = () => {
     setRecaptchaToken(null);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validate reCAPTCHA
     if (!recaptchaToken) {
       setRecaptchaError(true);
       toast({
@@ -46,18 +48,33 @@ const ContactSection = () => {
       return;
     }
 
-    // Form submission logic would go here
-    console.log("Form submitted:", { ...formData, recaptchaToken });
+    setIsSubmitting(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('verify-recaptcha', {
+        body: { token: recaptchaToken, formData },
+      });
 
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for reaching out. We'll get back to you soon.",
-    });
+      if (error || !data?.success) {
+        throw new Error(data?.error || error?.message || 'Verification failed');
+      }
 
-    // Reset form and reCAPTCHA
-    setFormData({ name: "", email: "", message: "", subscribe: false });
-    setRecaptchaToken(null);
-    recaptchaRef.current?.reset();
+      toast({
+        title: "Message Sent!",
+        description: "Thank you for reaching out. We'll get back to you soon.",
+      });
+
+      setFormData({ name: "", email: "", message: "", subscribe: false });
+      setRecaptchaToken(null);
+      recaptchaRef.current?.reset();
+    } catch (err: any) {
+      toast({
+        title: "Error",
+        description: err.message || "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -145,8 +162,8 @@ const ContactSection = () => {
                 )}
               </div>
 
-              <Button type="submit" variant="cta" className="w-full" disabled={!recaptchaToken}>
-                Send Message
+              <Button type="submit" variant="cta" className="w-full" disabled={!recaptchaToken || isSubmitting}>
+                {isSubmitting ? "Sending..." : "Send Message"}
               </Button>
             </form>
           </div>
