@@ -51,14 +51,6 @@ const TestimonialsSection = () => {
 
               {/* Content */}
               <div className="p-6 text-primary-foreground">
-                <p className="text-sm font-medium opacity-80 uppercase tracking-wide mb-1">{testimonial.role.split("\n").map((line, i) => (
-                  <span key={i}>
-                    {line}
-                    {i < testimonial.role.split("\n").length - 1 && <br />}
-                  </span>
-                ))}</p>
-                <h3 className="text-xl sans-serif font-bold mb-4">{testimonial.name}</h3>
-
                 <blockquote className="text-sm leading-relaxed opacity-90 mb-4 italic">
                   "{expandedIndex === index && testimonial.expandedQuote
                     ? testimonial.expandedQuote.split("\n\n").map((para, i) => (
@@ -85,19 +77,30 @@ const TestimonialsSection = () => {
                   </button>
                 )}
 
-                {/* Website Link */}
-                {testimonial.website && (
-                  <a
-                    href={testimonial.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-sm text-primary-foreground/80 hover:text-primary-foreground transition-colors mt-4"
-                    aria-label={`Visit ${testimonial.name}'s website`}
-                  >
-                    <Globe className="w-4 h-4" />
-                    <span>{testimonial.website.replace("https://", "").replace("www.", "")}</span>
-                  </a>
-                )}
+                {/* Sign-off */}
+                <div className="mt-6 pt-4 border-t border-primary-foreground/20">
+                  <h3 className="text-xl sans-serif font-bold">{testimonial.name}</h3>
+                  <p className="text-sm font-medium opacity-80 uppercase tracking-wide mt-1">
+                    {testimonial.role.split("\n").map((line, i) => (
+                      <span key={i}>
+                        {line}
+                        {i < testimonial.role.split("\n").length - 1 && <br />}
+                      </span>
+                    ))}
+                  </p>
+                  {testimonial.website && (
+                    <a
+                      href={testimonial.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-sm text-primary-foreground/80 hover:text-primary-foreground transition-colors mt-2"
+                      aria-label={`Visit ${testimonial.name}'s website`}
+                    >
+                      <Globe className="w-4 h-4" />
+                      <span>{testimonial.website.replace("https://", "").replace("www.", "")}</span>
+                    </a>
+                  )}
+                </div>
               </div>
             </div>
           ))}
