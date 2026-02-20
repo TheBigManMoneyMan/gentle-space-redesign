@@ -1,31 +1,18 @@
 
 
-## Make Hero Images More Visible
+## Remove reCAPTCHA from Contact Form
 
-Adjusting the overlay and image opacity values to make the sports images more prominent in the hero section.
+### Changes
 
-### Changes to Make
+1. **`src/components/ContactSection.tsx`** - Remove all reCAPTCHA-related code:
+   - Remove `react-google-recaptcha` import and `ReCAPTCHA` component
+   - Remove `recaptchaRef`, `recaptchaToken`, `recaptchaError` state variables
+   - Remove `handleRecaptchaChange` and `handleRecaptchaExpired` handlers
+   - Remove the reCAPTCHA widget and error message from the JSX
+   - Simplify form submission to no longer call the verify-recaptcha function or check for a token
+   - Remove the `disabled={!recaptchaToken}` condition from the submit button (keep `isSubmitting` disable logic)
 
-**File: `src/components/HeroSection.tsx`**
+2. **`supabase/functions/verify-recaptcha/index.ts`** - Delete this edge function since it is no longer needed.
 
-| Element | Current Value | New Value |
-|---------|---------------|-----------|
-| Gradient overlay (left) | `from-primary/60` | `from-primary/50` |
-| Gradient overlay (center) | `via-primary/45` | `via-primary/35` |
-| Gradient overlay (right) | `to-primary/30` | `to-primary/20` |
-| Image opacity (active slide) | `opacity-40` | `opacity-50` |
-
-### Technical Details
-
-The changes will be made on two lines:
-
-1. **Line 36** - Reduce the gradient overlay opacity by 10% at each point:
-   - `from-primary/60` → `from-primary/50`
-   - `via-primary/45` → `via-primary/35`
-   - `to-primary/30` → `to-primary/20`
-
-2. **Line 45** - Increase the active image opacity by 10%:
-   - `opacity-40` → `opacity-50`
-
-This will reduce the maroon color overlay and make the underlying sports images more visible while still maintaining enough contrast for the text to remain readable.
+3. **`package.json`** - Remove `react-google-recaptcha` and `@types/react-google-recaptcha` dependencies.
 
