@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Globe, ChevronDown } from "lucide-react";
+import testimonialGoode from "@/assets/testimonial-goode.png";
+import testimonialCaptain from "@/assets/testimonial-captain.png";
 
 const TestimonialsSection = () => {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
@@ -9,6 +11,7 @@ const TestimonialsSection = () => {
       name: "Jason Goode",
       role: "Somatic Performance Coach",
       website: "https://somasport.ca",
+      image: testimonialGoode,
       shortQuote:
         "Learning the Wheel of Consent with Corinne was one of the most practical and impactful pieces of training I've done. It gave me a clear, embodied way to understand boundaries, agency, and communication—skills I now use every day in my work with athletes. I truly believe this work helps build safer teams, stronger leaders, and a culture of respect, and Corinne has a gift for teaching it in a way that really lands.",
       expandedQuote:
@@ -18,6 +21,7 @@ const TestimonialsSection = () => {
       name: 'Dr. Liam "Captain" Snowdon',
       role: "Founder, Sex Positive Art and Resource Centre (SPARC), Victoria, BC\nAssistant Professor, Institute for Sexuality Education and Enlightenment",
       website: "https://captainsnowdon.ca",
+      image: testimonialCaptain,
       shortQuote:
         "I have had the immense pleasure of attending, co-creating and evaluating workshops that Corinne has taken part in. Corinne is doing radical consent education in a way and at a time in history that we need pleasure-focused, trauma-informed, and social justice-oriented experiential teaching. In sex education and anti-violence circles up and down the West Coast, Corinne is one of the most qualified, professional, and frankly engaging facilitators. It is with immense delight that I think of folks of diverse allegiances, identities, and knowledge bases at your conference learning with Corinne.",
       expandedQuote: null,
@@ -43,9 +47,11 @@ const TestimonialsSection = () => {
               {/* Avatar */}
               <div className="p-6 pb-0 flex justify-center">
                 <div className="w-32 h-32 rounded-full bg-muted flex items-center justify-center overflow-hidden">
-                  <span className="text-4xl font-bold text-muted-foreground">
-                    {testimonial.name.charAt(0)}
-                  </span>
+                  <img
+                    src={testimonial.image}
+                    alt={testimonial.name}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
               </div>
 
