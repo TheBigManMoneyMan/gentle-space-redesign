@@ -11,8 +11,10 @@ const RECAPTCHA_SITE_KEY = "6LedfHIsAAAAAIu4k6_-2fgz6FNVWtPEnVs3Xd4B";
 declare global {
   interface Window {
     grecaptcha: {
-      ready: (cb: () => void) => void;
-      execute: (siteKey: string, options: { action: string }) => Promise<string>;
+      enterprise: {
+        ready: (cb: () => void) => void;
+        execute: (siteKey: string, options: { action: string }) => Promise<string>;
+      };
     };
   }
 }
@@ -33,8 +35,8 @@ const ContactSection = () => {
 
     try {
       const token = await new Promise<string>((resolve, reject) => {
-        window.grecaptcha.ready(() => {
-          window.grecaptcha
+        window.grecaptcha.enterprise.ready(() => {
+          window.grecaptcha.enterprise
             .execute(RECAPTCHA_SITE_KEY, { action: "contact" })
             .then(resolve)
             .catch(reject);

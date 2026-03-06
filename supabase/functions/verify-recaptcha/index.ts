@@ -6,6 +6,9 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
+const SITE_KEY = "6LedfHIsAAAAAIu4k6_-2fgz6FNVWtPEnVs3Xd4B";
+const PROJECT_ID = "consentcoach-1771617515169";
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -21,22 +24,39 @@ serve(async (req) => {
       });
     }
 
-    const secretKey = Deno.env.get("RECAPTCHA_SECRET_KEY");
-    if (!secretKey) {
-      throw new Error("RECAPTCHA_SECRET_KEY is not configured");
+    const apiKey = Deno.env.get("RECAPTCHA_ENTERPRISE_API_KEY");
+    if (!apiKey) {
+      throw new Error("RECAPTCHA_ENTERPRISE_API_KEY is not configured");
     }
 
-    const response = await fetch("https://www.google.com/recaptcha/api/siteverify", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: `secret=${secretKey}&response=${token}`,
-    });
+    const response = await fetch(
+      `https://recaptchaenterprise.googleapis.com/v1/projects/${PROJECT_ID}/assessments?key=${apiKey}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          event: {
+            token,
+            expectedAction: "contact",
+            siteKey: SITE_KEY,
+          },
+        }),
+      }
+    );
 
     const data = await response.json();
 
-    const isValid = data.success && (data.score ?? 0) >= 0.5;
+    if (!response.ok) {
+      console.error("reCAPTCHA Enterprise API error:", JSON.stringify(data));
+      throw new Error(data.error?.message || "Assessment request failed");
+    }
 
-    return new Response(JSON.stringify({ success: isValid, score: data.score }), {
+    const valid = data.tokenProperties?.valid === true;
+    const actionMatch = data.tokenProperties?.action === "contact";
+    const score = data.riskAnalysis?.score ?? 0;
+    const isValid = valid && actionMatch && score >= 0.5;
+
+    return new Response(JSON.stringify({ success: isValid, score }), {
       status: isValid ? 200 : 400,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
