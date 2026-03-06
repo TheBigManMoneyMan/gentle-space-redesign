@@ -104,6 +104,11 @@ const ContactSection = () => {
               <Button type="submit" variant="cta" className="w-full" disabled={isSubmitting}>
                 {isSubmitting ? "Sending..." : "Send Message"}
               </Button>
+              <p className="text-xs text-muted-foreground mt-2">
+                This site is protected by reCAPTCHA and the Google{" "}
+                <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="underline hover:text-accent">Privacy Policy</a> and{" "}
+                <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer" className="underline hover:text-accent">Terms of Service</a> apply.
+              </p>
             </form>
           </div>
 
