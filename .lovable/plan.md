@@ -1,18 +1,22 @@
 
 
-## Remove reCAPTCHA from Contact Form
+## Implement reCAPTCHA Enterprise
 
 ### Changes
 
-1. **`src/components/ContactSection.tsx`** - Remove all reCAPTCHA-related code:
-   - Remove `react-google-recaptcha` import and `ReCAPTCHA` component
-   - Remove `recaptchaRef`, `recaptchaToken`, `recaptchaError` state variables
-   - Remove `handleRecaptchaChange` and `handleRecaptchaExpired` handlers
-   - Remove the reCAPTCHA widget and error message from the JSX
-   - Simplify form submission to no longer call the verify-recaptcha function or check for a token
-   - Remove the `disabled={!recaptchaToken}` condition from the submit button (keep `isSubmitting` disable logic)
+1. **Store the API key** as a backend secret (`RECAPTCHA_ENTERPRISE_API_KEY`) so the edge function can call the Enterprise assessment endpoint.
 
-2. **`supabase/functions/verify-recaptcha/index.ts`** - Delete this edge function since it is no longer needed.
+2. **`index.html`** — Change the script from `recaptcha/api.js` to `recaptcha/enterprise.js`:
+   ```html
+   <script src="https://www.google.com/recaptcha/enterprise.js?render=6LedfHIsAAAAAIu4k6_-2fgz6FNVWtPEnVs3Xd4B"></script>
+   ```
 
-3. **`package.json`** - Remove `react-google-recaptcha` and `@types/react-google-recaptcha` dependencies.
+3. **`src/components/ContactSection.tsx`** — Update the `grecaptcha` calls to use `grecaptcha.enterprise.ready()` and `grecaptcha.enterprise.execute()` instead of `grecaptcha.ready()` / `grecaptcha.execute()`. Update the `Window` type declaration accordingly.
+
+4. **`supabase/functions/verify-recaptcha/index.ts`** — Replace the Google v3 `siteverify` call with the Enterprise assessment endpoint:
+   ```
+   POST https://recaptchaenterprise.googleapis.com/v1/projects/consentcoach-1771617515169/assessments?key=<API_KEY>
+   ```
+   Body: `{ event: { token, expectedAction: "contact", siteKey } }`
+   Validate `tokenProperties.valid`, `tokenProperties.action`, and `riskAnalysis.score >= 0.5`.
 
