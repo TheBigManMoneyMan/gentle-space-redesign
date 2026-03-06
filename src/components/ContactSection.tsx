@@ -2,11 +2,16 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail } from "lucide-react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useToast } from "@/hooks/use-toast";
+import ReCAPTCHA from "react-google-recaptcha";
+import { supabase } from "@/integrations/supabase/client";
+
+const RECAPTCHA_SITE_KEY = "6LedfHIsAAAAAIu4k6_-2fgz6FNVWtPEnVs3Xd4B";
 
 const ContactSection = () => {
   const { toast } = useToast();
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -14,13 +19,36 @@ const ContactSection = () => {
     subscribe: false,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+
+  const handleRecaptchaChange = (token: string | null) => {
+    setRecaptchaToken(token);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!recaptchaToken) {
+      toast({
+        title: "Verification Required",
+        description: "Please complete the reCAPTCHA verification.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
     try {
+      const { data, error } = await supabase.functions.invoke("verify-recaptcha", {
+        body: { token: recaptchaToken },
+      });
+
+      if (error || !data?.success) {
+        throw new Error("reCAPTCHA verification failed. Please try again.");
+      }
+
       // TODO: implement form submission logic (e.g. send email, store in DB)
-      console.log('Form submission:', formData);
+      console.log("Form submission:", formData);
 
       toast({
         title: "Message Sent!",
@@ -28,6 +56,8 @@ const ContactSection = () => {
       });
 
       setFormData({ name: "", email: "", message: "", subscribe: false });
+      setRecaptchaToken(null);
+      recaptchaRef.current?.reset();
     } catch (err: any) {
       toast({
         title: "Error",
@@ -69,7 +99,13 @@ const ContactSection = () => {
                 <input type="checkbox" id="subscribe" className="w-4 h-4 rounded border-border text-accent focus:ring-accent" checked={formData.subscribe} onChange={(e) => setFormData({ ...formData, subscribe: e.target.checked })} />
                 <label htmlFor="subscribe" className="text-sm text-muted-foreground">Yes, subscribe me to your newsletter</label>
               </div>
-              <Button type="submit" variant="cta" className="w-full" disabled={isSubmitting}>
+              <ReCAPTCHA
+                ref={recaptchaRef}
+                sitekey={RECAPTCHA_SITE_KEY}
+                onChange={handleRecaptchaChange}
+                onExpired={() => setRecaptchaToken(null)}
+              />
+              <Button type="submit" variant="cta" className="w-full" disabled={isSubmitting || !recaptchaToken}>
                 {isSubmitting ? "Sending..." : "Send Message"}
               </Button>
             </form>
