@@ -35,8 +35,8 @@ const ContactSection = () => {
 
     try {
       const token = await new Promise<string>((resolve, reject) => {
-        window.grecaptcha.ready(() => {
-          window.grecaptcha
+        window.grecaptcha.enterprise.ready(() => {
+          window.grecaptcha.enterprise
             .execute(RECAPTCHA_SITE_KEY, { action: "contact" })
             .then(resolve)
             .catch(reject);
