@@ -1,25 +1,18 @@
 
 
-## Switch to reCAPTCHA v3 (Invisible, Score-Based)
-
-The current v3 keys require a reCAPTCHA v3 implementation. This removes the visible checkbox widget and runs verification silently in the background.
+## Remove reCAPTCHA from Contact Form
 
 ### Changes
 
-1. **Remove `react-google-recaptcha` package** — v2-only library. Instead, load the reCAPTCHA v3 script directly via a `<script>` tag in `index.html`.
+1. **`src/components/ContactSection.tsx`** - Remove all reCAPTCHA-related code:
+   - Remove `react-google-recaptcha` import and `ReCAPTCHA` component
+   - Remove `recaptchaRef`, `recaptchaToken`, `recaptchaError` state variables
+   - Remove `handleRecaptchaChange` and `handleRecaptchaExpired` handlers
+   - Remove the reCAPTCHA widget and error message from the JSX
+   - Simplify form submission to no longer call the verify-recaptcha function or check for a token
+   - Remove the `disabled={!recaptchaToken}` condition from the submit button (keep `isSubmitting` disable logic)
 
-2. **`index.html`** — Add the reCAPTCHA v3 script:
-   ```html
-   <script src="https://www.google.com/recaptcha/api.js?render=6LedfHIsAAAAAIu4k6_-2fgz6FNVWtPEnVs3Xd4B"></script>
-   ```
+2. **`supabase/functions/verify-recaptcha/index.ts`** - Delete this edge function since it is no longer needed.
 
-3. **`src/components/ContactSection.tsx`**:
-   - Remove `react-google-recaptcha` import, `recaptchaRef`, `recaptchaToken` state, `handleRecaptchaChange`, and the `<ReCAPTCHA>` JSX element
-   - On form submit, call `window.grecaptcha.execute(siteKey, { action: 'contact' })` to get a token
-   - Send that token to the `verify-recaptcha` edge function as before
-   - Remove the `disabled={!recaptchaToken}` condition from the button (only keep `isSubmitting`)
-
-4. **`supabase/functions/verify-recaptcha/index.ts`** — Add score checking: verify `data.score >= 0.5` in addition to `data.success` (v3 returns a score 0.0–1.0).
-
-5. **`package.json`** — Remove `react-google-recaptcha` and `@types/react-google-recaptcha`.
+3. **`package.json`** - Remove `react-google-recaptcha` and `@types/react-google-recaptcha` dependencies.
 

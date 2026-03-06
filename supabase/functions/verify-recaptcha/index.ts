@@ -34,8 +34,10 @@ serve(async (req) => {
 
     const data = await response.json();
 
-    return new Response(JSON.stringify({ success: data.success }), {
-      status: data.success ? 200 : 400,
+    const isValid = data.success && (data.score ?? 0) >= 0.5;
+
+    return new Response(JSON.stringify({ success: isValid, score: data.score }), {
+      status: isValid ? 200 : 400,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (error) {
