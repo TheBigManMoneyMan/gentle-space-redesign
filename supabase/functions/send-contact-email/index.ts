@@ -61,7 +61,6 @@ serve(async (req) => {
         <h2>New Contact Form Submission</h2>
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Subscribe to newsletter:</strong> ${subscribe ? "Yes" : "No"}</p>
         <hr />
         <p><strong>Message:</strong></p>
         <p>${message.replace(/\n/g, "<br>")}</p>
