@@ -59,6 +59,8 @@ const ContactSection = () => {
         throw new Error("Failed to send message. Please try again.");
       }
 
+      console.log("✅ Contact form email sent successfully:", { name: formData.name, email: formData.email });
+
       toast({
         title: "Message Sent!",
         description: "Thank you for reaching out. We'll get back to you soon.",
