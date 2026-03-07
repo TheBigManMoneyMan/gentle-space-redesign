@@ -51,7 +51,7 @@ serve(async (req) => {
       },
     });
 
-    await transporter.sendMail({
+    const info = await transporter.sendMail({
       from: '"Consent Coach Website" <info@consentcoach.ca>',
       to: "info@consentcoach.ca",
       replyTo: email,
@@ -67,6 +67,8 @@ serve(async (req) => {
         <p>${message.replace(/\n/g, "<br>")}</p>
       `,
     });
+
+    console.log("Email sent successfully:", { messageId: info.messageId, to: "info@consentcoach.ca", from: name, email });
 
     return new Response(
       JSON.stringify({ success: true }),
