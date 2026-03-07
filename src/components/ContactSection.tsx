@@ -51,8 +51,13 @@ const ContactSection = () => {
         throw new Error("Verification failed. Please try again.");
       }
 
-      // TODO: implement form submission logic (e.g. send email, store in DB)
-      console.log("Form submission:", formData);
+      const { data: emailData, error: emailError } = await supabase.functions.invoke("send-contact-email", {
+        body: { name: formData.name, email: formData.email, message: formData.message, subscribe: formData.subscribe },
+      });
+
+      if (emailError || !emailData?.success) {
+        throw new Error("Failed to send message. Please try again.");
+      }
 
       toast({
         title: "Message Sent!",
