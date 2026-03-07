@@ -17,10 +17,10 @@ serve(async (req) => {
     const { name, email, message, subscribe } = await req.json();
 
     if (!name || !email || !message) {
-      return new Response(
-        JSON.stringify({ success: false, error: "Missing required fields" }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return new Response(JSON.stringify({ success: false, error: "Missing required fields" }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     // Store in database
@@ -55,7 +55,7 @@ serve(async (req) => {
       from: '"Consent Coach Website" <info@consentcoach.ca>',
       to: "info@consentcoach.ca",
       replyTo: email,
-      subject: `New Contact Form: ${name}`,
+      subject: `Consent Coach Contact Form From: ${name}`,
       text: `Name: ${name}\nEmail: ${email}\nSubscribe: ${subscribe ? "Yes" : "No"}\n\nMessage:\n${message}`,
       html: `
         <h2>New Contact Form Submission</h2>
@@ -68,18 +68,23 @@ serve(async (req) => {
       `,
     });
 
-    console.log("Email sent successfully:", { messageId: info.messageId, to: "info@consentcoach.ca", from: name, email });
+    console.log("Email sent successfully:", {
+      messageId: info.messageId,
+      to: "info@consentcoach.ca",
+      from: name,
+      email,
+    });
 
-    return new Response(
-      JSON.stringify({ success: true }),
-      { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ success: true }), {
+      status: 200,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   } catch (error) {
     const msg = error instanceof Error ? error.message : "Unknown error";
     console.error("send-contact-email error:", msg);
-    return new Response(
-      JSON.stringify({ success: false, error: msg }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ success: false, error: msg }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   }
 });
