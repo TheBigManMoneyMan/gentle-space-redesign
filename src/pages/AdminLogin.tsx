@@ -17,8 +17,7 @@ const AdminLogin = () => {
 
   // If already logged in as admin, redirect
   if (user && isAdmin) {
-    navigate("/admin", { replace: true });
-    return null;
+    return <Navigate to="/admin" replace />;
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
