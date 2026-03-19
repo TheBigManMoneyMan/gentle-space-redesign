@@ -20,27 +20,41 @@ const AdminLogin = () => {
     if (!isLoading && user && isAdmin) {
       navigate("/admin", { replace: true });
     }
-  }, [user, isAdmin, isLoading, navigate]);
+    // If user is set but not admin, show message and reset
+    if (!isLoading && user && !isAdmin && isSubmitting) {
+      setIsSubmitting(false);
+      toast({ title: "Access Denied", description: "You do not have admin access.", variant: "destructive" });
+    }
+  }, [user, isAdmin, isLoading, navigate, isSubmitting, toast]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    const { error } = isSignUp ? await signUp(email, password) : await signIn(email, password);
+    
+    try {
+      const { error } = isSignUp ? await signUp(email, password) : await signIn(email, password);
 
-    if (error) {
+      if (error) {
+        setIsSubmitting(false);
+        toast({ title: isSignUp ? "Sign Up Failed" : "Login Failed", description: error.message, variant: "destructive" });
+        return;
+      }
+
+      if (isSignUp) {
+        setIsSubmitting(false);
+        toast({ title: "Account Created!", description: "You can now sign in. Ask the site owner to grant you admin access." });
+        setIsSignUp(false);
+        return;
+      }
+
+      // For sign-in: wait for auth state to update, but add a safety timeout
+      setTimeout(() => {
+        setIsSubmitting(false);
+      }, 8000);
+    } catch {
       setIsSubmitting(false);
-      toast({ title: isSignUp ? "Sign Up Failed" : "Login Failed", description: error.message, variant: "destructive" });
-      return;
+      toast({ title: "Login Failed", description: "An unexpected error occurred. Please try again.", variant: "destructive" });
     }
-
-    if (isSignUp) {
-      setIsSubmitting(false);
-      toast({ title: "Account Created!", description: "You can now sign in. Ask the site owner to grant you admin access." });
-      setIsSignUp(false);
-      return;
-    }
-
-    // Don't setIsSubmitting(false) here — let the auth state change + redirect handle it
   };
 
   if (isLoading) {
