@@ -1,12 +1,15 @@
-import { useState, useEffect, createContext, useContext } from "react";
+import { useState, useEffect, createContext, useContext, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import type { User, Session } from "@supabase/supabase-js";
+
+type RoleStatus = "idle" | "checking" | "admin" | "non_admin" | "error";
 
 interface AuthContextType {
   user: User | null;
   session: Session | null;
   isAdmin: boolean;
   isLoading: boolean;
+  roleStatus: RoleStatus;
   signIn: (email: string, password: string) => Promise<{ error: Error | null }>;
   signUp: (email: string, password: string) => Promise<{ error: Error | null }>;
   signOut: () => Promise<void>;
@@ -17,83 +20,94 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isAuthInitialized, setIsAuthInitialized] = useState(false);
+  const [roleStatus, setRoleStatus] = useState<RoleStatus>("idle");
 
-  const checkAdminRole = async (userId: string) => {
-    const { data } = await supabase
-      .from("user_roles")
-      .select("role")
-      .eq("user_id", userId)
-      .eq("role", "admin")
-      .maybeSingle();
-    setIsAdmin(!!data);
-  };
-
+  // Synchronous-only auth listener — NO database queries here
   useEffect(() => {
-    // Safety timeout — never stay loading forever
-    const timeout = setTimeout(() => {
-      setIsLoading(false);
-    }, 5000);
-
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (_event, session) => {
-        setIsLoading(true);
+      (_event, session) => {
         setSession(session);
         setUser(session?.user ?? null);
-        if (session?.user) {
-          try {
-            await checkAdminRole(session.user.id);
-          } catch (e) {
-            console.error("Failed to check admin role:", e);
-            setIsAdmin(false);
-          }
-        } else {
-          setIsAdmin(false);
+        if (!session?.user) {
+          setRoleStatus("idle");
         }
-        setIsLoading(false);
-        clearTimeout(timeout);
+        setIsAuthInitialized(true);
       }
     );
 
-    supabase.auth.getSession().then(async ({ data: { session } }) => {
+    // Initial session check
+    supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
-      if (session?.user) {
-        try {
-          await checkAdminRole(session.user.id);
-        } catch (e) {
-          console.error("Failed to check admin role:", e);
-          setIsAdmin(false);
-        }
+      if (!session?.user) {
+        setRoleStatus("idle");
       }
-      setIsLoading(false);
-      clearTimeout(timeout);
+      setIsAuthInitialized(true);
     });
 
-    return () => {
-      subscription.unsubscribe();
-      clearTimeout(timeout);
-    };
+    return () => subscription.unsubscribe();
   }, []);
 
-  const signIn = async (email: string, password: string) => {
+  // Separate effect for role checking — runs when user changes
+  useEffect(() => {
+    if (!user?.id) {
+      setRoleStatus("idle");
+      return;
+    }
+
+    let cancelled = false;
+    setRoleStatus("checking");
+
+    const checkRole = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("user_roles")
+          .select("role")
+          .eq("user_id", user.id)
+          .eq("role", "admin")
+          .maybeSingle();
+
+        if (cancelled) return;
+
+        if (error) {
+          console.error("Role check failed:", error);
+          setRoleStatus("error");
+        } else {
+          setRoleStatus(data ? "admin" : "non_admin");
+        }
+      } catch (e) {
+        if (!cancelled) {
+          console.error("Role check exception:", e);
+          setRoleStatus("error");
+        }
+      }
+    };
+
+    checkRole();
+    return () => { cancelled = true; };
+  }, [user?.id]);
+
+  const isAdmin = roleStatus === "admin";
+  const isLoading = !isAuthInitialized || (!!user && roleStatus === "checking");
+
+  const signIn = useCallback(async (email: string, password: string) => {
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     return { error: error as Error | null };
-  };
+  }, []);
 
-  const signUp = async (email: string, password: string) => {
+  const signUp = useCallback(async (email: string, password: string) => {
     const { error } = await supabase.auth.signUp({ email, password });
     return { error: error as Error | null };
-  };
+  }, []);
 
-  const signOut = async () => {
+  const signOut = useCallback(async () => {
+    setRoleStatus("idle");
     await supabase.auth.signOut();
-    setIsAdmin(false);
-  };
+  }, []);
 
   return (
-    <AuthContext.Provider value={{ user, session, isAdmin, isLoading, signIn, signUp, signOut }}>
+    <AuthContext.Provider value={{ user, session, isAdmin, isLoading, roleStatus, signIn, signUp, signOut }}>
       {children}
     </AuthContext.Provider>
   );

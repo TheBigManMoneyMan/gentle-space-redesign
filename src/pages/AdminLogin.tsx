@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
@@ -11,59 +11,79 @@ const AdminLogin = () => {
   const [password, setPassword] = useState("");
   const [isSignUp, setIsSignUp] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { signIn, signUp, isAdmin, user, isLoading } = useAuth();
+  const { signIn, signUp, isAdmin, user, isLoading, roleStatus, signOut } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  // If already logged in as admin, redirect
-  useEffect(() => {
-    if (!isLoading && user && isAdmin) {
-      navigate("/admin", { replace: true });
-    }
-    // If user is set but not admin, show message and reset
-    if (!isLoading && user && !isAdmin && isSubmitting) {
-      setIsSubmitting(false);
-      toast({ title: "Access Denied", description: "You do not have admin access.", variant: "destructive" });
-    }
-  }, [user, isAdmin, isLoading, navigate, isSubmitting, toast]);
+  // Already authenticated as admin — redirect
+  if (!isLoading && user && isAdmin) {
+    return <Navigate to="/admin" replace />;
+  }
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    
-    try {
-      const { error } = isSignUp ? await signUp(email, password) : await signIn(email, password);
-
-      if (error) {
-        setIsSubmitting(false);
-        toast({ title: isSignUp ? "Sign Up Failed" : "Login Failed", description: error.message, variant: "destructive" });
-        return;
-      }
-
-      if (isSignUp) {
-        setIsSubmitting(false);
-        toast({ title: "Account Created!", description: "You can now sign in. Ask the site owner to grant you admin access." });
-        setIsSignUp(false);
-        return;
-      }
-
-      // For sign-in: wait for auth state to update, but add a safety timeout
-      setTimeout(() => {
-        setIsSubmitting(false);
-      }, 8000);
-    } catch {
-      setIsSubmitting(false);
-      toast({ title: "Login Failed", description: "An unexpected error occurred. Please try again.", variant: "destructive" });
-    }
-  };
-
-  if (isLoading) {
+  // Auth still initializing
+  if (isLoading && !isSubmitting) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <p className="text-foreground">Loading...</p>
       </div>
     );
   }
+
+  // Authenticated but checking role
+  if (user && roleStatus === "checking") {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <p className="text-foreground">Checking permissions...</p>
+      </div>
+    );
+  }
+
+  // Authenticated but NOT admin
+  if (user && (roleStatus === "non_admin" || roleStatus === "error")) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background px-4">
+        <Card className="w-full max-w-md text-center">
+          <CardHeader>
+            <CardTitle className="text-2xl">Access Denied</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <p className="text-muted-foreground">Your account does not have admin privileges.</p>
+            <Button variant="outline" onClick={signOut}>Sign Out</Button>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      const { error } = isSignUp ? await signUp(email, password) : await signIn(email, password);
+
+      if (error) {
+        toast({ title: isSignUp ? "Sign Up Failed" : "Login Failed", description: error.message, variant: "destructive" });
+        setIsSubmitting(false);
+        return;
+      }
+
+      if (isSignUp) {
+        toast({ title: "Account Created!", description: "You can now sign in. Ask the site owner to grant you admin access." });
+        setIsSignUp(false);
+        setIsSubmitting(false);
+        return;
+      }
+
+      // For sign-in: auth state change will trigger role check automatically.
+      // isLoading will become true during role check, then resolve.
+      // We keep isSubmitting true until the component re-renders with the new state.
+      setIsSubmitting(false);
+    } catch {
+      toast({ title: "Login Failed", description: "An unexpected error occurred.", variant: "destructive" });
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background px-4">

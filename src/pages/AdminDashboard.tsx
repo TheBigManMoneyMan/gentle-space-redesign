@@ -155,7 +155,7 @@ const imageSections = [
 ];
 
 const AdminDashboard = () => {
-  const { user, isAdmin, isLoading, signOut } = useAuth();
+  const { user, isAdmin, isLoading, roleStatus, signOut } = useAuth();
 
   if (isLoading) {
     return (
