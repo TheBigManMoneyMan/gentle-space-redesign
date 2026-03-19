@@ -43,6 +43,14 @@ const AdminLogin = () => {
     // Don't setIsSubmitting(false) here — let the auth state change + redirect handle it
   };
 
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <p className="text-foreground">Loading...</p>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-background px-4">
       <Card className="w-full max-w-md">
