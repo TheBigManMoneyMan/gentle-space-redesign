@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
+import { useSiteContent } from "@/hooks/useSiteContent";
 import heroBasketball from "@/assets/hero-basketball.jpg";
 import heroFootball from "@/assets/hero-football-new.jpg";
 import heroFootballTeam from "@/assets/hero-football-team.jpg";
@@ -8,34 +9,34 @@ import heroAudience from "@/assets/hero-audience.jpg";
 import heroLectureHall from "@/assets/hero-lecture-hall.jpg";
 
 const heroImages = [
-  {
-    src: heroHockey,
-    alt: "Hockey players in action on the ice rink",
-  },
-  {
-    src: heroFootball,
-    alt: "Football players during a game, demonstrating teamwork",
-  },
-  {
-    src: heroAudience,
-    alt: "Audience attentively listening during a presentation",
-  },
-  {
-    src: heroBasketball,
-    alt: "Basketball players during an indoor game",
-  },
-  {
-    src: heroLectureHall,
-    alt: "Students in a modern lecture hall during an educational session",
-  },
-  {
-    src: heroFootballTeam,
-    alt: "Football team running together on the field",
-  },
+  { src: heroHockey, alt: "Hockey players in action on the ice rink" },
+  { src: heroFootball, alt: "Football players during a game, demonstrating teamwork" },
+  { src: heroAudience, alt: "Audience attentively listening during a presentation" },
+  { src: heroBasketball, alt: "Basketball players during an indoor game" },
+  { src: heroLectureHall, alt: "Students in a modern lecture hall during an educational session" },
+  { src: heroFootballTeam, alt: "Football team running together on the field" },
 ];
+
+// Hardcoded fallback values
+const defaults = {
+  title: "Helping you \nplay safe AND have fun",
+  subtitle: "Trauma- informed consent education to empower young people to understand boundaries and power dynamics, and thrive in healthy relationships!",
+  cta_primary_text: "Book a Session",
+  cta_primary_link: "#contact",
+  cta_secondary_text: "Learn More",
+  cta_secondary_link: "#about",
+};
 
 const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const { data: content } = useSiteContent("hero");
+
+  const title = content?.title || defaults.title;
+  const subtitle = content?.subtitle || defaults.subtitle;
+  const ctaPrimaryText = content?.cta_primary_text || defaults.cta_primary_text;
+  const ctaPrimaryLink = content?.cta_primary_link || defaults.cta_primary_link;
+  const ctaSecondaryText = content?.cta_secondary_text || defaults.cta_secondary_text;
+  const ctaSecondaryLink = content?.cta_secondary_link || defaults.cta_secondary_link;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -44,12 +45,14 @@ const HeroSection = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // Split title by newline for line breaks
+  const titleParts = title.split("\n");
+
   return (
     <section className="relative min-h-screen flex items-center">
       {/* Background slideshow */}
       <div className="absolute inset-0 gradient-hero">
         <div className="absolute inset-0 bg-gradient-to-r from-primary/50 via-primary/35 to-primary/20 z-10" />
-
         {heroImages.map((image, index) => (
           <img
             key={index}
@@ -81,30 +84,31 @@ const HeroSection = () => {
       {/* Green accent triangle */}
       <div
         className="absolute top-0 left-0 w-1/3 h-full gradient-green-overlay z-10"
-        style={{
-          clipPath: "polygon(0 0, 100% 0, 0 100%)",
-        }}
+        style={{ clipPath: "polygon(0 0, 100% 0, 0 100%)" }}
       />
 
       {/* Content */}
       <div className="relative z-20 container-wide mx-auto px-6 lg:px-12 py-32 lg:py-40">
         <div className="max-w-3xl ml-auto lg:ml-[20%]">
           <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl sans-serif font-bold text-primary-foreground leading-tight mb-6">
-            Helping you <br />
-            play safe AND have fun
+            {titleParts.map((part, i) => (
+              <span key={i}>
+                {part}
+                {i < titleParts.length - 1 && <br />}
+              </span>
+            ))}
           </h1>
 
           <p className="text-lg md:text-xl text-primary-foreground/90 mb-8 max-w-xl leading-relaxed">
-            Trauma- informed consent education to empower young people to understand boundaries and power dynamics, and
-            thrive in healthy relationships!
+            {subtitle}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4">
             <Button variant="hero" size="lg" asChild>
-              <a href="#contact">Book a Session</a>
+              <a href={ctaPrimaryLink}>{ctaPrimaryText}</a>
             </Button>
             <Button variant="heroOutline" size="lg" asChild>
-              <a href="#about">Learn More</a>
+              <a href={ctaSecondaryLink}>{ctaSecondaryText}</a>
             </Button>
           </div>
         </div>
