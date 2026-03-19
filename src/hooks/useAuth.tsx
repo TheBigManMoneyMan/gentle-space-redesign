@@ -36,7 +36,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setSession(session);
         setUser(session?.user ?? null);
         if (session?.user) {
-          await checkAdminRole(session.user.id);
+          try {
+            await checkAdminRole(session.user.id);
+          } catch (e) {
+            console.error("Failed to check admin role:", e);
+            setIsAdmin(false);
+          }
         } else {
           setIsAdmin(false);
         }
@@ -48,7 +53,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setSession(session);
       setUser(session?.user ?? null);
       if (session?.user) {
-        await checkAdminRole(session.user.id);
+        try {
+          await checkAdminRole(session.user.id);
+        } catch (e) {
+          console.error("Failed to check admin role:", e);
+          setIsAdmin(false);
+        }
       }
       setIsLoading(false);
     });
