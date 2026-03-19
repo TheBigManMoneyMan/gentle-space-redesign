@@ -5,6 +5,7 @@ import { Mail } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 const RECAPTCHA_SITE_KEY = "6LedfHIsAAAAAIu4k6_-2fgz6FNVWtPEnVs3Xd4B";
 
@@ -19,8 +20,20 @@ declare global {
   }
 }
 
+const defaults = {
+  title: "Get in Touch",
+  subtitle: "We'd love to hear from you. Reach out to start a conversation about how we can support your journey.",
+  form_title: "Send Us a Message",
+  email: "info@consentcoach.com",
+  safe_title: "Safe & Confidential",
+  safe_description: "All consultations are conducted in a safe, confidential environment. We practice trauma-informed approaches and prioritize your comfort and autonomy at every step.",
+};
+
 const ContactSection = () => {
   const { toast } = useToast();
+  const { data: content } = useSiteContent("contact");
+  const c = { ...defaults, ...content };
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -82,15 +95,13 @@ const ContactSection = () => {
     <section id="contact" className="section-padding bg-secondary-dark">
       <div className="container-wide mx-auto">
         <div className="text-center mb-16 max-w-2xl mx-auto">
-          <h2 className="text-4xl md:text-5xl sans-serif font-bold text-foreground mb-4">Get in Touch</h2>
-          <p className="text-muted-foreground text-lg">
-            We'd love to hear from you. Reach out to start a conversation about how we can support your journey.
-          </p>
+          <h2 className="text-4xl md:text-5xl sans-serif font-bold text-foreground mb-4">{c.title}</h2>
+          <p className="text-muted-foreground text-lg">{c.subtitle}</p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
           <div className="bg-card rounded-xl p-8 shadow-soft">
-            <h3 className="text-xl sans-serif font-semibold text-foreground mb-6">Send Us a Message</h3>
+            <h3 className="text-xl sans-serif font-semibold text-foreground mb-6">{c.form_title}</h3>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">Name</label>
@@ -129,16 +140,14 @@ const ContactSection = () => {
                   </div>
                   <div>
                     <p className="font-medium text-foreground">Email</p>
-                    <a href="mailto:info@consentcoach.com" className="text-muted-foreground hover:text-accent transition-colors">info@consentcoach.com</a>
+                    <a href={`mailto:${c.email}`} className="text-muted-foreground hover:text-accent transition-colors">{c.email}</a>
                   </div>
                 </div>
               </div>
             </div>
             <div className="bg-card rounded-xl p-6 shadow-soft border-l-4 border-accent">
-              <p className="text-foreground font-medium mb-2">Safe & Confidential</p>
-              <p className="text-muted-foreground text-sm leading-relaxed">
-                All consultations are conducted in a safe, confidential environment. We practice trauma-informed approaches and prioritize your comfort and autonomy at every step.
-              </p>
+              <p className="text-foreground font-medium mb-2">{c.safe_title}</p>
+              <p className="text-muted-foreground text-sm leading-relaxed">{c.safe_description}</p>
             </div>
           </div>
         </div>

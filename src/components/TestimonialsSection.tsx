@@ -1,61 +1,46 @@
 import { useState } from "react";
 import { Globe, ChevronDown } from "lucide-react";
+import { useSiteContent } from "@/hooks/useSiteContent";
 import testimonialGoode from "@/assets/testimonial-goode.png";
 import testimonialCaptain from "@/assets/testimonial-captain.png";
 
+const testimonialImages = [testimonialGoode, testimonialCaptain];
+
 const TestimonialsSection = () => {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+  const { data: content } = useSiteContent("testimonials");
 
-  const testimonials = [
-    {
-      name: "Jason Goode",
-      role: "Somatic Performance Coach",
-      website: "https://somasport.ca",
-      image: testimonialGoode,
-      shortQuote:
-        "Learning the Wheel of Consent with Corinne was one of the most practical and impactful pieces of training I've done. It gave me a clear, embodied way to understand boundaries, agency, and communication—skills I now use every day in my work with athletes. I truly believe this work helps build safer teams, stronger leaders, and a culture of respect, and Corinne has a gift for teaching it in a way that really lands.",
-      expandedQuote:
-        "Learning the Wheel of Consent with Corinne fundamentally changed how I understand power, choice, and responsibility in human interaction. What struck me most was how practical and embodied the work is—it's not just theory or policy, but something you feel and practice in your body.\n\nAs a coach working with athletes at both the club and national level, I see how essential this kind of learning is. So many conflicts, misunderstandings, and harms don't come from bad intentions, but from a lack of clarity around boundaries, agency, and communication. The Wheel gives a simple, experiential framework for how to navigate these pitfalls.\n\nI believe this training should be foundational in athletic and post-secondary environments. It supports safer teams, stronger leadership, and young men and women who can move through the world with integrity and respect. Corinne teaches this work with skill, warmth, and depth.",
-    },
-    {
-      name: 'Dr. Liam "Captain" Snowdon',
-      role: "Founder, Sex Positive Art and Resource Centre (SPARC), Victoria, BC\nAssistant Professor, Institute for Sexuality Education and Enlightenment",
-      website: "https://captainsnowdon.ca",
-      image: testimonialCaptain,
-      shortQuote:
-        "I have had the immense pleasure of attending, co-creating and evaluating workshops that Corinne has taken part in. Corinne is doing radical consent education in a way and at a time in history that we need pleasure-focused, trauma-informed, and social justice-oriented experiential teaching. In sex education and anti-violence circles up and down the West Coast, Corinne is one of the most qualified, professional, and frankly engaging facilitators. It is with immense delight that I think of folks of diverse allegiances, identities, and knowledge bases at your conference learning with Corinne.",
-      expandedQuote: null,
-    },
-  ];
+  const title = content?.title || "Testimonials";
+
+  const testimonials = [1, 2].map((i) => ({
+    name: content?.[`testimonial_${i}_name`] || "",
+    role: content?.[`testimonial_${i}_role`] || "",
+    website: content?.[`testimonial_${i}_website`] || "",
+    image: testimonialImages[i - 1],
+    shortQuote: content?.[`testimonial_${i}_short`] || "",
+    expandedQuote: content?.[`testimonial_${i}_expanded`] || null,
+  }));
 
   return (
     <section id="testimonials" className="section-padding bg-secondary">
       <div className="container-wide mx-auto">
-        {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl sans-serif font-bold text-foreground mb-2">Testimonials</h2>
+          <h2 className="text-4xl md:text-5xl sans-serif font-bold text-foreground mb-2">{title}</h2>
           <div className="w-12 h-1 bg-foreground mx-auto mt-4" />
         </div>
 
-        {/* Testimonials Grid */}
         <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
               className="bg-primary rounded-xl overflow-hidden shadow-card hover:shadow-elevated transition-shadow duration-300"
             >
-              {/* Avatar */}
               <div className="p-6 pb-0 flex justify-center">
                 <div className="w-32 h-32 rounded-full bg-muted flex items-center justify-center overflow-hidden">
-                  <img
-                    src={testimonial.image}
-                    alt={testimonial.name}
-                    className="w-full h-full object-cover"
-                  />
+                  <img src={testimonial.image} alt={testimonial.name} className="w-full h-full object-cover" />
                 </div>
               </div>
 
-              {/* Content */}
               <div className="p-6 text-primary-foreground">
                 <blockquote className="text-sm leading-relaxed opacity-90 mb-4 italic">
                   "{expandedIndex === index && testimonial.expandedQuote
@@ -68,7 +53,6 @@ const TestimonialsSection = () => {
                     : testimonial.shortQuote}"
                 </blockquote>
 
-                {/* Expand Arrow */}
                 {testimonial.expandedQuote && (
                   <button
                     onClick={() => setExpandedIndex(expandedIndex === index ? null : index)}
@@ -76,14 +60,11 @@ const TestimonialsSection = () => {
                     aria-label={expandedIndex === index ? "Show less" : "Read more"}
                   >
                     <ChevronDown
-                      className={`w-5 h-5 transition-transform duration-300 ${
-                        expandedIndex === index ? "rotate-180" : ""
-                      }`}
+                      className={`w-5 h-5 transition-transform duration-300 ${expandedIndex === index ? "rotate-180" : ""}`}
                     />
                   </button>
                 )}
 
-                {/* Sign-off */}
                 <div className="mt-6 pt-4 border-t border-primary-foreground/20">
                   <h3 className="text-xl sans-serif font-bold">{testimonial.name}</h3>
                   <p className="text-sm font-medium opacity-80 uppercase tracking-wide mt-1">
