@@ -24,15 +24,20 @@ const AdminLogin = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    const { error } = await signIn(email, password);
+    const { error } = isSignUp ? await signUp(email, password) : await signIn(email, password);
     setIsLoading(false);
 
     if (error) {
-      toast({ title: "Login Failed", description: error.message, variant: "destructive" });
+      toast({ title: isSignUp ? "Sign Up Failed" : "Login Failed", description: error.message, variant: "destructive" });
       return;
     }
 
-    // Wait briefly for role check to complete
+    if (isSignUp) {
+      toast({ title: "Account Created!", description: "You can now sign in. Ask the site owner to grant you admin access." });
+      setIsSignUp(false);
+      return;
+    }
+
     setTimeout(() => {
       navigate("/admin");
     }, 500);
