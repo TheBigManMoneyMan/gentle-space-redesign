@@ -3,6 +3,8 @@ import { Navigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { LogOut } from "lucide-react";
 import AdminSectionEditor from "@/components/admin/AdminSectionEditor";
+import AdminSectionManager from "@/components/admin/AdminSectionManager";
+import AdminImageManager from "@/components/admin/AdminImageManager";
 
 const sectionConfigs = [
   {
@@ -145,6 +147,13 @@ const sectionConfigs = [
   },
 ];
 
+const imageSections = [
+  { sectionKey: "hero", title: "Hero" },
+  { sectionKey: "about", title: "About" },
+  { sectionKey: "team", title: "Team" },
+  { sectionKey: "testimonials", title: "Testimonials" },
+];
+
 const AdminDashboard = () => {
   const { user, isAdmin, isLoading, signOut } = useAuth();
 
@@ -181,18 +190,38 @@ const AdminDashboard = () => {
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-6 py-8 space-y-4">
-        <p className="text-sm text-muted-foreground mb-4">
-          Click on any section below to expand and edit its content. Changes are saved per section.
+      <main className="max-w-4xl mx-auto px-6 py-8 space-y-6">
+        <p className="text-sm text-muted-foreground">
+          Manage section ordering, edit content, and upload images below.
         </p>
-        {sectionConfigs.map((config) => (
-          <AdminSectionEditor
-            key={config.sectionKey}
-            sectionKey={config.sectionKey}
-            title={config.title}
-            fields={config.fields}
-          />
-        ))}
+
+        {/* Section ordering & visibility */}
+        <AdminSectionManager />
+
+        {/* Image managers */}
+        <div>
+          <h2 className="text-lg font-semibold text-foreground mb-3">Image Management</h2>
+          <div className="space-y-4">
+            {imageSections.map((s) => (
+              <AdminImageManager key={s.sectionKey} sectionKey={s.sectionKey} title={s.title} />
+            ))}
+          </div>
+        </div>
+
+        {/* Content editors */}
+        <div>
+          <h2 className="text-lg font-semibold text-foreground mb-3">Content Editors</h2>
+          <div className="space-y-4">
+            {sectionConfigs.map((config) => (
+              <AdminSectionEditor
+                key={config.sectionKey}
+                sectionKey={config.sectionKey}
+                title={config.title}
+                fields={config.fields}
+              />
+            ))}
+          </div>
+        </div>
       </main>
     </div>
   );
