@@ -68,8 +68,8 @@ const AdminLogin = () => {
               <label htmlFor="admin-password" className="block text-sm font-medium text-foreground mb-1">Password</label>
               <Input id="admin-password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required placeholder="••••••••" />
             </div>
-            <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? (isSignUp ? "Creating account..." : "Signing in...") : (isSignUp ? "Create Account" : "Sign In")}
+            <Button type="submit" className="w-full" disabled={isSubmitting}>
+              {isSubmitting ? (isSignUp ? "Creating account..." : "Signing in...") : (isSignUp ? "Create Account" : "Sign In")}
             </Button>
           </form>
           <div className="mt-4 text-center">
