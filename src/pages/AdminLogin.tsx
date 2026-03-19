@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, Navigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -17,8 +17,7 @@ const AdminLogin = () => {
 
   // If already logged in as admin, redirect
   if (user && isAdmin) {
-    navigate("/admin", { replace: true });
-    return null;
+    return <Navigate to="/admin" replace />;
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
