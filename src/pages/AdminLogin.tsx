@@ -10,36 +10,37 @@ const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSignUp, setIsSignUp] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const { signIn, signUp, isAdmin, user } = useAuth();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { signIn, signUp, isAdmin, user, isLoading } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
 
   // If already logged in as admin, redirect
-  if (user && isAdmin) {
-    return <Navigate to="/admin" replace />;
-  }
+  useEffect(() => {
+    if (!isLoading && user && isAdmin) {
+      navigate("/admin", { replace: true });
+    }
+  }, [user, isAdmin, isLoading, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
+    setIsSubmitting(true);
     const { error } = isSignUp ? await signUp(email, password) : await signIn(email, password);
-    setIsLoading(false);
 
     if (error) {
+      setIsSubmitting(false);
       toast({ title: isSignUp ? "Sign Up Failed" : "Login Failed", description: error.message, variant: "destructive" });
       return;
     }
 
     if (isSignUp) {
+      setIsSubmitting(false);
       toast({ title: "Account Created!", description: "You can now sign in. Ask the site owner to grant you admin access." });
       setIsSignUp(false);
       return;
     }
 
-    setTimeout(() => {
-      navigate("/admin");
-    }, 500);
+    // Don't setIsSubmitting(false) here — let the auth state change + redirect handle it
   };
 
   return (
