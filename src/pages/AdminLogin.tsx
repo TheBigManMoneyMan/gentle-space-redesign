@@ -69,7 +69,6 @@ const AdminLogin = () => {
               {isSignUp ? "Already have an account? Sign in" : "Need an account? Sign up"}
             </button>
           </div>
-          </form>
         </CardContent>
       </Card>
     </div>
