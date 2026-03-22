@@ -9,9 +9,8 @@ import { useToast } from "@/hooks/use-toast";
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isSignUp, setIsSignUp] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { signIn, signUp, isAdmin, user, isLoading, roleStatus, signOut } = useAuth();
+  const { signIn, isAdmin, user, isLoading, roleStatus, signOut } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -60,24 +59,14 @@ const AdminLogin = () => {
     setIsSubmitting(true);
 
     try {
-      const { error } = isSignUp ? await signUp(email, password) : await signIn(email, password);
+      const { error } = await signIn(email, password);
 
       if (error) {
-        toast({ title: isSignUp ? "Sign Up Failed" : "Login Failed", description: error.message, variant: "destructive" });
+        toast({ title: "Login Failed", description: error.message, variant: "destructive" });
         setIsSubmitting(false);
         return;
       }
 
-      if (isSignUp) {
-        toast({ title: "Account Created!", description: "You can now sign in. Ask the site owner to grant you admin access." });
-        setIsSignUp(false);
-        setIsSubmitting(false);
-        return;
-      }
-
-      // For sign-in: auth state change will trigger role check automatically.
-      // isLoading will become true during role check, then resolve.
-      // We keep isSubmitting true until the component re-renders with the new state.
       setIsSubmitting(false);
     } catch {
       toast({ title: "Login Failed", description: "An unexpected error occurred.", variant: "destructive" });
@@ -89,8 +78,8 @@ const AdminLogin = () => {
     <div className="min-h-screen flex items-center justify-center bg-background px-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl">{isSignUp ? "Create Account" : "Admin Login"}</CardTitle>
-          <p className="text-sm text-muted-foreground mt-2">{isSignUp ? "Create an account to get started" : "Sign in to manage site content"}</p>
+          <CardTitle className="text-2xl">Admin Login</CardTitle>
+          <p className="text-sm text-muted-foreground mt-2">Sign in to manage site content</p>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -103,14 +92,9 @@ const AdminLogin = () => {
               <Input id="admin-password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required placeholder="••••••••" />
             </div>
             <Button type="submit" className="w-full" disabled={isSubmitting}>
-              {isSubmitting ? (isSignUp ? "Creating account..." : "Signing in...") : (isSignUp ? "Create Account" : "Sign In")}
+              {isSubmitting ? "Signing in..." : "Sign In"}
             </Button>
           </form>
-          <div className="mt-4 text-center">
-            <button type="button" onClick={() => setIsSignUp(!isSignUp)} className="text-sm text-muted-foreground hover:text-accent transition-colors">
-              {isSignUp ? "Already have an account? Sign in" : "Need an account? Sign up"}
-            </button>
-          </div>
         </CardContent>
       </Card>
     </div>
