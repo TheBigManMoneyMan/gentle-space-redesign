@@ -1,10 +1,33 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 
+type AllContent = Record<string, Record<string, string>>;
+
+export const useAllSiteContent = () => {
+  return useQuery({
+    queryKey: ["site-content-all"],
+    queryFn: async (): Promise<AllContent> => {
+      const { data, error } = await supabase.from("site_content").select("*");
+      if (error) throw error;
+      const grouped: AllContent = {};
+      data?.forEach((item) => {
+        if (!grouped[item.section_key]) grouped[item.section_key] = {};
+        grouped[item.section_key][item.content_key] = item.value;
+      });
+      return grouped;
+    },
+    staleTime: 1000 * 60 * 5,
+  });
+};
+
 export const useSiteContent = (sectionKey: string) => {
+  const queryClient = useQueryClient();
   return useQuery({
     queryKey: ["site-content", sectionKey],
     queryFn: async () => {
+      const cached = queryClient.getQueryData<AllContent>(["site-content-all"]);
+      if (cached && cached[sectionKey]) return cached[sectionKey];
+
       const { data, error } = await supabase
         .from("site_content")
         .select("*")
@@ -36,6 +59,7 @@ export const useUpdateSiteContent = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["site-content"] });
+      queryClient.invalidateQueries({ queryKey: ["site-content-all"] });
     },
   });
 };

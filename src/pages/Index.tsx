@@ -1,4 +1,4 @@
-import { useSiteSections } from "@/hooks/useSiteContent";
+import { useSiteSections, useAllSiteContent } from "@/hooks/useSiteContent";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
@@ -28,19 +28,27 @@ const defaultOrder = ["hero", "about", "approach", "how_it_works", "team", "serv
 
 const Index = () => {
   const { data: sections } = useSiteSections();
+  const { data: allContent, isLoading: contentLoading, isError: contentError } = useAllSiteContent();
 
   const orderedSections = sections
     ? sections.filter((s) => s.is_visible).map((s) => s.section_key)
     : defaultOrder;
 
+  // Gate rendering until content has loaded (or errored) — prevents flash of fallback text
+  const ready = !!allContent || contentError;
+
   return (
     <div className="min-h-screen">
       <Header />
       <main>
-        {orderedSections.map((key) => {
-          const Component = sectionComponents[key];
-          return Component ? <Component key={key} /> : null;
-        })}
+        {ready ? (
+          orderedSections.map((key) => {
+            const Component = sectionComponents[key];
+            return Component ? <Component key={key} /> : null;
+          })
+        ) : (
+          <div className="min-h-screen" aria-hidden="true" />
+        )}
       </main>
       <Footer />
     </div>
