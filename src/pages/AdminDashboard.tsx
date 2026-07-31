@@ -30,6 +30,17 @@ const sectionConfigs = [
     ],
   },
   {
+    sectionKey: "promo",
+    title: "Promo Video Section",
+    fields: [
+      { key: "title", label: "Title", type: "text" as const },
+      { key: "subline", label: "Subline", type: "textarea" as const },
+      { key: "video_url", label: "Video URL (YouTube embed URL)", type: "text" as const },
+      { key: "thumbnail_url", label: "Thumbnail Image URL (optional)", type: "text" as const },
+    ],
+  },
+  {
+
     sectionKey: "approach",
     title: "Approach Section",
     fields: [
