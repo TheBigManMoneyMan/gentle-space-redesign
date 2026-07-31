@@ -20,13 +20,18 @@ const PromoVideoSection = () => {
   const { data: content } = useSiteContent("promo");
   const c = { ...defaults, ...content };
 
-  const thumbnailSrc = c.thumbnail_url || promoThumbnail;
   const hasVideo = c.video_url && c.video_url.trim().length > 0;
   const isEmbed =
     hasVideo &&
     (c.video_url.includes("youtube.com/embed") ||
       c.video_url.includes("player.vimeo.com") ||
       c.video_url.includes("youtube-nocookie.com/embed"));
+
+  const ytId = hasVideo ? c.video_url.match(/(?:youtube(?:-nocookie)?\.com\/(?:embed\/|watch\?v=)|youtu\.be\/)([A-Za-z0-9_-]{11})/)?.[1] : undefined;
+  const thumbnailSrc =
+    c.thumbnail_url ||
+    (ytId ? `https://img.youtube.com/vi/${ytId}/maxresdefault.jpg` : promoThumbnail);
+
 
   return (
     <section id="promo" className="section-padding bg-secondary/50">
