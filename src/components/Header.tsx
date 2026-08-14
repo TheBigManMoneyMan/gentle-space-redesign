@@ -21,7 +21,7 @@ const Header = () => {
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <a href="#" className="flex items-center" aria-label="Consent Coach home">
-            <img src={logoAsset.url} alt="Consent Coach logo" className="h-10 lg:h-12 w-auto" />
+            <img src={logoAsset.url} alt="Consent Coach logo" className="h-12 lg:h-16 w-auto" />
           </a>
 
           {/* Desktop Navigation */}
