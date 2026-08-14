@@ -6,7 +6,7 @@ import {
   DialogContent,
   DialogTitle,
 } from "@/components/ui/dialog";
-import promoThumbnail from "@/assets/promo-thumbnail.jpg";
+import promoThumbAsset from "@/assets/promo-thumb.png.asset.json";
 
 const defaults = {
   title: "See Consent Coaching in Action",
@@ -27,10 +27,7 @@ const PromoVideoSection = () => {
       c.video_url.includes("player.vimeo.com") ||
       c.video_url.includes("youtube-nocookie.com/embed"));
 
-  const ytId = hasVideo ? c.video_url.match(/(?:youtube(?:-nocookie)?\.com\/(?:embed\/|watch\?v=)|youtu\.be\/)([A-Za-z0-9_-]{11})/)?.[1] : undefined;
-  const thumbnailSrc =
-    c.thumbnail_url ||
-    (ytId ? `https://img.youtube.com/vi/${ytId}/maxresdefault.jpg` : promoThumbnail);
+  const thumbnailSrc = c.thumbnail_url || promoThumbAsset.url;
 
 
   return (
@@ -48,13 +45,13 @@ const PromoVideoSection = () => {
         <div className="max-w-5xl mx-auto">
           <button
             onClick={() => setIsOpen(true)}
-            className="group relative block w-full aspect-video rounded-2xl overflow-hidden shadow-card hover:shadow-elevated transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            className="group relative block w-full aspect-video rounded-2xl overflow-hidden bg-black shadow-card hover:shadow-elevated transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             aria-label="Play promo video"
           >
             <img
               src={thumbnailSrc}
-              alt="Promo video thumbnail"
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+              alt="Consent Coach promo video thumbnail"
+              className="w-full h-full object-contain p-8 md:p-16 transition-transform duration-500 group-hover:scale-[1.03]"
             />
             <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors duration-300" />
 
