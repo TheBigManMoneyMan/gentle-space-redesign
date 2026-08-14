@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import logoAsset from "@/assets/consent-coach-logo.png.asset.json";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,8 +20,8 @@ const Header = () => {
       <div className="container-wide mx-auto px-6 lg:px-12">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
-          <a href="#" className="sans-serif text-xl lg:text-2xl font-bold text-foreground">
-            Consent Coaching
+          <a href="#" className="flex items-center" aria-label="Consent Coach home">
+            <img src={logoAsset.url} alt="Consent Coach logo" className="h-10 lg:h-12 w-auto" />
           </a>
 
           {/* Desktop Navigation */}
