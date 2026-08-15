@@ -1,5 +1,6 @@
 import { CheckCircle } from "lucide-react";
 import { useSiteContent } from "@/hooks/useSiteContent";
+import approachImage from "@/assets/jay-corinne-consent.png";
 
 const defaults = {
   title: "Our Approach",
