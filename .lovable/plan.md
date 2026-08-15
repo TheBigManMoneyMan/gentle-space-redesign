@@ -1,60 +1,34 @@
-## The 454 MB problem
+# Fix missing logo and video thumbnail on consentcoach.ca
 
-A 454 MB video cannot be committed to the project, should not be auto-loaded on page open, and would be painful for mobile visitors. The plan below gets it onto the site in a performant way.
+## What's happening
 
-## Step 1 — Compress the source file (strongly recommended)
+The logo and the promo video thumbnail are not stored as real image files in the project. They are "CDN asset pointers" — small JSON files that hold a URL like `/__l5e/assets-v1/.../consent-coach-logo.png`. That URL is served by Lovable's hosting, not by your build.
 
-454 MB for ~3.5 minutes is roughly 17 Mbps, which is overkill for web. Target:
+Verified live:
 
-- **Web-optimized MP4:** 3–6 Mbps for 1080p
-- **Goal size:** under 100 MB, ideally 40–80 MB
-- **Tooling:** HandBrake, FFmpeg, or a service like Vimeo / YouTube (which re-encode automatically)
+- `https://admin.consentcoach.ca/__l5e/.../consent-coach-logo.png` → 200 OK (works)
+- `https://consentcoach.ca/__l5e/.../consent-coach-logo.png` → 404 Not Found
 
-If the video must stay at 454 MB for quality reasons, use a streaming host rather than self-hosting the raw file.
+So on the Hostinger-hosted `consentcoach.ca` copy of the site the image URLs don't exist, the browser can't load them, and it falls back to showing the alt text. Everything else looks fine because the other images (hero photos, team photos) are real files inside `src/assets` that get bundled into the build.
 
-## Step 2 — Choose a hosting approach
+## The fix
 
-### Option A: YouTube or Vimeo embed (recommended)
+Turn both images into real bundled files instead of hosted pointers:
 
-- Upload the video to YouTube or Vimeo.
-- Set to unlisted if it should not be discoverable.
-- Embed via iframe in a modal/lightbox.
-- **Pros:** free/ cheap CDN, adaptive streaming, no bandwidth cost to you, works on all devices.
-- **Cons:** player branding, depends on third-party availability.
+1. Download the two images from the CDN and save them into `src/assets` as actual PNG files (`consent-coach-logo.png`, `promo-thumb.png`).
+2. Change the header to import the logo file directly instead of reading the `.asset.json` pointer.
+3. Change the promo video section to import the thumbnail file directly instead of reading its `.asset.json` pointer.
+4. Delete the two now-unused `.asset.json` pointer files.
 
-### Option B: Supabase Storage
+After that, both images are compiled into the site bundle with hashed filenames, so they work identically on the Lovable preview, `admin.consentcoach.ca`, and the Hostinger-hosted `consentcoach.ca` — no external URL dependency.
 
-- Upload the MP4 to the existing `site-images` bucket or a new `site-videos` bucket.
-- Create a public bucket and RLS SELECT policy for `storage.objects`.
-- Use a standard `<video>` element with `preload="none"` so it only downloads when the user clicks play.
-- **Pros:** full control, no third-party branding.
-- **Cons:** 454 MB downloaded from Supabase Storage is not adaptive streaming; mobile users on slow connections will buffer. Large files can also hit egress/bandwidth limits.
+Note: you'll need to re-upload/redeploy the new build to Hostinger for the change to appear on `consentcoach.ca`.
 
-### Option C: Lovable Assets CDN
+## Technical details
 
-- Upload via `lovable-assets create --file <path>`.
-- Reference the returned `.asset.json` URL.
-- **Pros:** CDN-cached, global delivery.
-- **Cons:** not designed for streaming large video; best for short clips and images. A 454 MB asset may be rejected or perform poorly because it is delivered as a single file rather than adaptive chunks.
-
-**Recommendation:** Use Option A (YouTube/Vimeo) for the 454 MB source, or compress first and then use Option B if you want to self-host.
-
-## Step 3 — Build the on-site experience
-
-Same as the previous plan:
-
-1. Add a new `PromoVideoSection` between **About** and **Approach**.
-2. Show a branded thumbnail with a play button.
-3. Clicking play opens a modal/lightbox with the embedded player.
-4. Lazy-load the iframe only when the modal opens.
-5. Add CMS keys (`promo_title`, `promo_subline`, `promo_video_url`, `promo_thumbnail_url`) to `site_content` and register `promo` in `site_sections` so it can be reordered or hidden.
-
-## Step 4 — What I need from you
-
-- The video file or a link to it (YouTube/Vimeo URL, or the raw file if you want me to compress and upload it).
-- Whether you are okay with YouTube/Vimeo branding, or if you prefer self-hosted Supabase Storage.
-- A custom thumbnail, or I can generate one that matches the dark-blue / teal / electric-green brand palette.
-
-## If you want me to do the compression/upload
-
-I can run FFmpeg in the sandbox to compress an uploaded file, then upload the result to Supabase Storage or Lovable Assets. Just upload the video and tell me which host you prefer.
+- Files touched: `src/components/Header.tsx`, `src/components/PromoVideoSection.tsx`.
+- Files added: `src/assets/consent-coach-logo.png`, `src/assets/promo-thumb.png`.
+- Files removed: `src/assets/consent-coach-logo.png.asset.json`, `src/assets/promo-thumb.png.asset.json`.
+- Imports become `import logo from "@/assets/consent-coach-logo.png";` and used as `src={logo}` so Vite fingerprints and emits them.
+- `PromoVideoSection` keeps its existing behaviour of preferring the admin-CMS `thumbnail_url` when set; only the built-in fallback changes.
+- No database, backend, or layout/styling changes.
