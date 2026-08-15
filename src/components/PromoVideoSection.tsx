@@ -6,7 +6,7 @@ import {
   DialogContent,
   DialogTitle,
 } from "@/components/ui/dialog";
-import promoThumbAsset from "@/assets/promo-thumb.png.asset.json";
+import promoThumbImage from "@/assets/promo-thumb.png";
 
 const defaults = {
   title: "See Consent Coaching in Action",
@@ -27,7 +27,7 @@ const PromoVideoSection = () => {
       c.video_url.includes("player.vimeo.com") ||
       c.video_url.includes("youtube-nocookie.com/embed"));
 
-  const thumbnailSrc = c.thumbnail_url || promoThumbAsset.url;
+  const thumbnailSrc = c.thumbnail_url || promoThumbImage;
 
 
   return (
