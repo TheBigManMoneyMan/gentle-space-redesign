@@ -51,17 +51,17 @@ const ApproachSection = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center max-w-6xl mx-auto">
-          <div className="order-2 lg:order-1">
+        <div className="grid grid-cols-2 gap-4 md:gap-8 lg:gap-12 items-center max-w-6xl mx-auto">
+          <div className="min-w-0">
             <img
               src={approachImage}
               alt="Two people smiling in front of a whiteboard with CONSENT written on it"
               className="w-full rounded-2xl shadow-soft object-cover aspect-[3/4]"
             />
           </div>
-          <div className="order-1 lg:order-2 text-right space-y-6">
-            <p className="text-muted-foreground leading-relaxed" style={{ fontSize: "22px" }}>{c.closing_1}</p>
-            <p className="text-foreground font-medium" style={{ fontSize: "22px" }}>{c.closing_2}</p>
+          <div className="text-right space-y-6 min-w-0">
+            <p className="text-muted-foreground leading-relaxed break-words" style={{ fontSize: "22px" }}>{c.closing_1}</p>
+            <p className="text-foreground font-medium break-words" style={{ fontSize: "22px" }}>{c.closing_2}</p>
           </div>
         </div>
       </div>
