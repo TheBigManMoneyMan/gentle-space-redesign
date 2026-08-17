@@ -40,18 +40,23 @@ const sectionConfigs = [
     ],
   },
   {
-
-    sectionKey: "approach",
-    title: "Approach Section",
+    sectionKey: "principles",
+    title: "Principles Section",
     fields: [
-      { key: "title", label: "Title", type: "text" as const },
-      { key: "description", label: "Main Description", type: "textarea" as const },
       { key: "key_message", label: "Key Message (highlighted box)", type: "textarea" as const },
       { key: "benefits_header", label: "Benefits Header", type: "textarea" as const },
       { key: "benefit_1", label: "Benefit 1", type: "text" as const },
       { key: "benefit_2", label: "Benefit 2", type: "text" as const },
       { key: "benefit_3", label: "Benefit 3", type: "text" as const },
       { key: "benefit_4", label: "Benefit 4", type: "text" as const },
+    ],
+  },
+  {
+    sectionKey: "approach",
+    title: "Approach Section",
+    fields: [
+      { key: "title", label: "Title", type: "text" as const },
+      { key: "description", label: "Main Description", type: "textarea" as const },
       { key: "closing_1", label: "Closing Paragraph 1", type: "textarea" as const },
       { key: "closing_2", label: "Closing Paragraph 2", type: "textarea" as const },
     ],

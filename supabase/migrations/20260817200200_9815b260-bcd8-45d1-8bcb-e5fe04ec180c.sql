@@ -1,0 +1,14 @@
+BEGIN;
+UPDATE site_sections SET sort_order = sort_order + 100;
+UPDATE site_sections SET sort_order = 1 WHERE section_key = 'hero';
+UPDATE site_sections SET sort_order = 2 WHERE section_key = 'about';
+UPDATE site_sections SET sort_order = 3 WHERE section_key = 'promo';
+UPDATE site_sections SET sort_order = 5 WHERE section_key = 'approach';
+UPDATE site_sections SET sort_order = 6 WHERE section_key = 'how_it_works';
+UPDATE site_sections SET sort_order = 7 WHERE section_key = 'team';
+UPDATE site_sections SET sort_order = 8 WHERE section_key = 'services';
+UPDATE site_sections SET sort_order = 9 WHERE section_key = 'testimonials';
+UPDATE site_sections SET sort_order = 10 WHERE section_key = 'cta';
+UPDATE site_sections SET sort_order = 11 WHERE section_key = 'contact';
+INSERT INTO site_sections (section_key, title, sort_order, is_visible) VALUES ('principles', 'Principles', 4, true);
+COMMIT;

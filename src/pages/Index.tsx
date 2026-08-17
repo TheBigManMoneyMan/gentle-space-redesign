@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
 import PromoVideoSection from "@/components/PromoVideoSection";
+import PrinciplesSection from "@/components/PrinciplesSection";
 import ApproachSection from "@/components/ApproachSection";
 import HowItWorksSection from "@/components/HowItWorksSection";
 import TeamSection from "@/components/TeamSection";
@@ -17,6 +18,7 @@ const sectionComponents: Record<string, ComponentType> = {
   hero: HeroSection,
   about: AboutSection,
   promo: PromoVideoSection,
+  principles: PrinciplesSection,
   approach: ApproachSection,
   how_it_works: HowItWorksSection,
   team: TeamSection,
@@ -26,7 +28,7 @@ const sectionComponents: Record<string, ComponentType> = {
   contact: ContactSection,
 };
 
-const defaultOrder = ["hero", "about", "promo", "approach", "how_it_works", "team", "services", "testimonials", "cta", "contact"];
+const defaultOrder = ["hero", "about", "promo", "principles", "approach", "how_it_works", "team", "services", "testimonials", "cta", "contact"];
 
 const Index = () => {
   const { data: sections } = useSiteSections();
