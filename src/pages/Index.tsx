@@ -28,7 +28,7 @@ const sectionComponents: Record<string, ComponentType> = {
   contact: ContactSection,
 };
 
-const defaultOrder = ["hero", "about", "promo", "principles", "approach", "how_it_works", "team", "services", "testimonials", "cta", "contact"];
+const defaultOrder = ["hero", "about", "approach", "promo", "principles", "how_it_works", "team", "services", "testimonials", "cta", "contact"];
 
 const Index = () => {
   const { data: sections } = useSiteSections();
