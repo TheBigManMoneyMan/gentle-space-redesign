@@ -49,6 +49,8 @@ const sectionConfigs = [
       { key: "benefit_2", label: "Benefit 2", type: "text" as const },
       { key: "benefit_3", label: "Benefit 3", type: "text" as const },
       { key: "benefit_4", label: "Benefit 4", type: "text" as const },
+      { key: "closing_1", label: "Closing Paragraph 1", type: "textarea" as const },
+      { key: "closing_2", label: "Closing Paragraph 2", type: "textarea" as const },
     ],
   },
   {
@@ -57,8 +59,6 @@ const sectionConfigs = [
     fields: [
       { key: "title", label: "Title", type: "text" as const },
       { key: "description", label: "Main Description", type: "textarea" as const },
-      { key: "closing_1", label: "Closing Paragraph 1", type: "textarea" as const },
-      { key: "closing_2", label: "Closing Paragraph 2", type: "textarea" as const },
     ],
   },
   {
