@@ -1,7 +1,7 @@
 import { Globe } from "lucide-react";
 import { useSiteContent } from "@/hooks/useSiteContent";
 import founderImage from "@/assets/FounderImage.png";
-import teamJay from "@/assets/jaypic.png";
+import teamJay from "@/assets/jay-bio.jpg";
 import teamOliver from "@/assets/team-oliver.jpeg";
 
 const defaultMembers = [
