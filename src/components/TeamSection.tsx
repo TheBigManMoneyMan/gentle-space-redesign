@@ -53,14 +53,22 @@ const TeamSection = () => {
               }`}
             >
               <div className="p-6 pb-0">
-                <div className={`rounded-lg overflow-hidden ${member.name.includes("Oliver") ? "bg-muted w-fit mx-auto" : "h-72"}`}>
+                <div className={`rounded-lg overflow-hidden ${
+                  member.name.includes("Oliver")
+                    ? "bg-muted w-fit mx-auto"
+                    : member.name.includes("Jay")
+                      ? "h-auto"
+                      : "h-72"
+                }`}>
                   <img
                     src={member.image}
                     alt={`${member.name} - ${member.role}`}
-                    className={`w-full h-full ${
-                      member.name.includes("Oliver") ? "object-contain" : "object-cover"
-                    } ${
-                      member.name.includes("Jay") ? "object-[center_45%]" : "object-top"
+                    className={`w-full ${
+                      member.name.includes("Oliver")
+                        ? "h-full object-contain"
+                        : member.name.includes("Jay")
+                          ? "h-auto"
+                          : "h-full object-cover object-top"
                     }`}
                   />
                 </div>
